@@ -1,0 +1,33 @@
+.header_desktop .header__line:nth-child(1) {
+  font-size: 30px;
+  line-height: 40px;
+  color: #E3234A;
+}
+
+.header_desktop .header__line:nth-child(2) {
+  font-size: 72px;
+  line-height: 80px;
+  color: #F4F4F4;
+}
+
+.header_desktop .header__line:nth-child(2) .header__block:nth-child(2) {
+  font-weight: 800;
+}
+
+.header_mobile .header__line:nth-child(1) {
+  font-size: 9vw;
+  color: #E3234A;
+}
+
+.header_mobile .header__line:nth-child(2) {
+  font-size: 23.5vw;
+  line-height: 22vw;
+  color: #F4F4F4;
+}
+
+.header_mobile .header__line:nth-child(3) {
+  font-size: 20vw;
+  line-height: 22vw;
+  font-weight: 800;
+  color: #F4F4F4;
+}

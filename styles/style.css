@@ -1,1 +1,128 @@
 body { box-sizing: border-box; }
+
+/* [WIP] Prefix all classes with #wrapper */
+
+#wrapper * { box-sizing: border-box; }
+
+/*
+ *
+ *  Sticky header
+ *
+ */
+
+.sticky-header {
+  display: none;
+  justify-content: space-between;
+  padding: 4px 16px;
+  background: #212121;
+}
+
+.sticky-header__block {
+  font-family: 'Libe-Sans';
+  font-stretch: semi-condensed;
+  font-weight: 400;
+  font-size: 32px;
+  line-height: 40px;
+  text-transform: uppercase;
+  color: #F4F4F4;
+}
+
+/*
+ *
+ *  Header
+ *
+ */
+
+.header {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  padding: 24px;
+  background: #212121;
+}
+
+.header__line,
+.header__block {
+  font-family: 'Libe-Sans';
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: 400;
+  color: #F4F4F4;
+}
+
+.header__line {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+
+.header__block +
+.header__block::before {
+  content: " ";
+}
+
+@media screen and (max-width: 920px) {
+  .header_desktop {
+    display: none;
+  }  
+}
+
+@media screen and (min-width: 921px) {
+  .header_mobile {
+    display: none;
+  }  
+}
+
+/*
+ *
+ *  Page content
+ *
+ */
+
+.page-content {
+  display: grid;
+  grid-template-areas: 
+    "actors introduction timeline"
+    "actors facts timeline";
+}
+
+@media screen and (max-width: 920px) {
+  .page-content {
+    grid-template-areas: 
+      "introduction"
+      "actors"
+      "facts"
+      "timeline";
+  }
+
+  .page-content__timeline {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+}
+
+.page-content__introduction {
+  grid-area: introduction;
+  background: aliceblue;
+}
+
+.page-content__actors {
+  grid-area: actors;
+  background: coral;
+}
+
+.page-content__facts {
+  grid-area: facts;
+  background: khaki;
+}
+
+.timeline {
+  grid-area: timeline;
+  background: orchid;
+}
