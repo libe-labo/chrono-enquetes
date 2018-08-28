@@ -18,11 +18,12 @@ body { box-sizing: border-box; }
 }
 
 .sticky-header__block {
-  font-family: 'Libe-Sans';
-  font-stretch: semi-condensed;
-  font-weight: 400;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
   font-size: 32px;
   line-height: 40px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: semi-condensed;
   text-transform: uppercase;
   color: #F4F4F4;
 }
@@ -41,13 +42,19 @@ body { box-sizing: border-box; }
   background: #212121;
 }
 
+.header h1 {
+  margin: 0;
+}
+
 .header__line,
 .header__block {
-  font-family: 'Libe-Sans';
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
   font-stretch: semi-condensed;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  font-weight: 400;
   color: #F4F4F4;
 }
 
@@ -85,13 +92,59 @@ body { box-sizing: border-box; }
 
 .page-content {
   display: grid;
+  grid-template-columns: 25% 50% 25%;
   grid-template-areas: 
     "actors introduction timeline"
     "actors facts timeline";
 }
 
+.page-content__intro,
+.page-content__actors,
+.page-content__facts,
+.page-content__timeline {
+  padding: 32px;
+}
+
+.page-content__intro,
+.page-content__actors,
+.page-content__timeline {
+  padding-top: 40px;
+}
+
+.page-content__intro {
+  grid-area: introduction;
+  display: flex;
+  justify-content: center;
+}
+
+.page-content__actors {
+  grid-area: actors;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  background: #EEE;
+}
+
+.page-content__facts {
+  grid-area: facts;
+  display: flex;
+  justify-content: center;
+}
+
+.page-content__timeline {
+  grid-area: timeline;
+}
+
+.page-content__actors > *,
+.page-content__timeline > * {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 81px;
+}
+
 @media screen and (max-width: 920px) {
   .page-content {
+    grid-template-columns: 100%;
     grid-template-areas: 
       "introduction"
       "actors"
@@ -105,24 +158,298 @@ body { box-sizing: border-box; }
     left: 0;
     right: 0;
   }
+
+  .page-content__actors > *,
+  .page-content__timeline > * {
+    position: unset;
+  }
 }
 
-.page-content__introduction {
-  grid-area: introduction;
-  background: aliceblue;
+/*
+ *
+ *  Introduction paragraph
+ *
+ */
+
+.introduction-paragraph {
+  font-family: Synthese, Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+  text-align: center;
+  max-width: 544px
 }
 
-.page-content__actors {
-  grid-area: actors;
-  background: coral;
+/*
+ *
+ *  Actors panel
+ *
+ */
+
+.actors-panel {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: calc(5 * (64px + 16px));
 }
 
-.page-content__facts {
-  grid-area: facts;
-  background: khaki;
+.actors-panel__role-label {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 16px;
+  font-family: Synthese, Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #808080;
 }
 
-.timeline {
-  grid-area: timeline;
-  background: orchid;
+.actors-panel__role-label:nth-child(1) {
+  margin-top: 0;
+}
+
+.actors-panel__actor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 16px;
+  border-radius: 64px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.actors-panel__actor-picture {
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
+  background-image: url('../images/landru.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  transition: opacity 200ms;
+  border: 3px solid #808080;
+}
+
+.actors-panel__actor_accused
+  .actors-panel__actor-picture {
+  border: 3px solid #212121;
+}
+
+.actors-panel__actor:hover
+  .actors-panel__actor-picture,
+.actors-panel__actor_active
+  .actors-panel__actor-picture {
+  opacity: 1;
+}
+
+.actors-panel__actor-hover-name {
+  font-family: Synthese, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+  position: absolute;
+  left: 48px;
+  bottom: 0px;
+  z-index: 1;
+  background: #FAFAFA;
+  padding: 4px 8px;
+  display: none;
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
+}
+
+.actors-panel__actor:hover
+  .actors-panel__actor-hover-name {
+  display: block;
+}
+
+.actors-panel__actor-bio {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.actors-panel__actor-bio-name {
+  /*font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: none;
+  color: #212121;*/
+  font-family: 'Libe-Typewriter', monospace;
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+  margin-bottom: 8px;
+}
+
+.actors-panel__actor-bio-content {
+  /*font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;*/
+  font-family: 'Libe-Typewriter', monospace;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+}
+
+.actors-panel__filter-facts-by-active-actor {
+  flex-grow: 0;
+  width: fit-content;
+  align-self: flex-end;
+  margin-top: 16px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: uppercase;
+  color: #E3234A;
+}
+
+@media screen and (max-width: 920px) {
+  .actors-panel {
+    max-width: unset;
+  }
+}
+
+/*
+ *
+ *  Facts panel
+ *
+ */
+
+.facts-panel {
+  background-image: url('../assets/timeline-dots.png');
+  background-position: top center;
+  background-repeat: repeat-y;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 64px;
+  max-width: 600px;
+}
+
+.facts-panel__title {
+  margin: 0;
+  background: white;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 42px;
+  line-height: 64px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  color: #212121;
+  text-decoration: underline;
+}
+
+.facts-panel__year {
+  margin-top: 48px;
+  margin-bottom: 24px;
+  background: white;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 32px;
+  line-height: 48px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: uppercase;
+  color: #212121;
+}
+
+.facts-panel__date {
+  margin-top: 8px;
+  margin-bottom: 0;
+  background: white;
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: uppercase;
+  color: #808080;
+}
+
+.facts-panel__fact {
+  margin-bottom: 16px;
+  border: 2px solid #999999;
+  background: #ffffff;
+}
+
+.facts-panel__fact-title {
+  background: #999999;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: normal;
+  text-transform: normal;
+  color: #FAFAFA;
+  text-align: center;
+}
+
+.facts-panel__fact-content {
+  padding: 16px;
+  margin-top: -2px; /* Compensation of the container's border */
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: normal;
+  color: #212121;
+}
+
+
+.facts-panel__end-margin {
+  height: 64px;
+  width: 100%;
+}
+
+.facts-panel__end {
+  margin-top: auto;
+  background-image: url('../assets/libe-icon.svg');
+  background-color: #FFFFFF;
+  background-size: cover;
+  width: 48px;
+  height: 24px;
 }
