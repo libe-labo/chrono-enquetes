@@ -152,6 +152,21 @@ body { box-sizing: border-box; }
       "timeline";
   }
 
+  .page-content__intro {
+    padding-top: 8px;
+    padding-bottom: 40px;
+    background: #212121;
+  }
+
+  .page-content__actors {
+    background: #FFFFFF;
+  }
+
+  .page-content__intro
+    .introduction-paragraph {
+      color: #FAFAFA;
+    }
+
   .page-content__timeline {
     position: fixed;
     bottom: 0;
@@ -181,7 +196,22 @@ body { box-sizing: border-box; }
   text-transform: none;
   color: #212121;
   text-align: center;
-  max-width: 544px
+  max-width: 544px;
+}
+
+@media screen and (max-width: 920px) {
+  .introduction-paragraph {
+    max-width: unset;
+    width: 80vw;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .introduction-paragraph {
+    font-size: 16px;
+    line-height: 20px;
+    max-width: 544px;
+  }
 }
 
 /*
@@ -195,6 +225,29 @@ body { box-sizing: border-box; }
   flex-wrap: wrap;
   max-width: calc(5 * (64px + 16px));
 }
+
+.actors-panel
+  .actor {
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 16px;
+}
+
+/* [WIP] Afficher un titre à la section sur mobile */
+
+/*.actors-panel__title {
+  display: none;
+  margin: 0;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 42px;
+  line-height: 64px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  color: #212121;
+  text-decoration: underline;
+}*/
 
 .actors-panel__role-label {
   width: 100%;
@@ -212,114 +265,6 @@ body { box-sizing: border-box; }
 
 .actors-panel__role-label:nth-child(1) {
   margin-top: 0;
-}
-
-.actors-panel__actor {
-  position: relative;
-  display: flex;
-  align-items: center;
-  cursor: pointer;
-  margin-left: 8px;
-  margin-right: 8px;
-  margin-bottom: 16px;
-  border-radius: 64px;
-  background: transparent;
-  border: none;
-  outline: none;
-  padding: 0;
-}
-
-.actors-panel__actor-picture {
-  width: 64px;
-  height: 64px;
-  border-radius: 64px;
-  background-image: url('../images/landru.jpg');
-  background-size: cover;
-  background-position: center;
-  opacity: 0.7;
-  transition: opacity 200ms;
-  border: 3px solid #808080;
-}
-
-.actors-panel__actor_accused
-  .actors-panel__actor-picture {
-  border: 3px solid #212121;
-}
-
-.actors-panel__actor:hover
-  .actors-panel__actor-picture,
-.actors-panel__actor_active
-  .actors-panel__actor-picture {
-  opacity: 1;
-}
-
-.actors-panel__actor-hover-name {
-  font-family: Synthese, Helvetica, Arial, sans-serif;
-  font-size: 14px;
-  line-height: 16px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
-  color: #212121;
-  position: absolute;
-  left: 48px;
-  bottom: 0px;
-  z-index: 1;
-  background: #FAFAFA;
-  padding: 4px 8px;
-  display: none;
-  box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
-}
-
-.actors-panel__actor:hover
-  .actors-panel__actor-hover-name {
-  display: block;
-}
-
-.actors-panel__actor-bio {
-  display: flex;
-  flex-direction: column;
-  margin-top: 16px;
-}
-
-.actors-panel__actor-bio-name {
-  /*font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  line-height: 32px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-  font-stretch: semi-condensed;
-  text-transform: none;
-  color: #212121;*/
-  font-family: 'Libe-Typewriter', monospace;
-  font-size: 22px;
-  line-height: 32px;
-  font-weight: 600;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
-  color: #212121;
-  margin-bottom: 8px;
-}
-
-.actors-panel__actor-bio-content {
-  /*font-family: 'Synthese', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
-  color: #212121;*/
-  font-family: 'Libe-Typewriter', monospace;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
-  color: #212121;
 }
 
 .actors-panel__filter-facts-by-active-actor {
@@ -343,6 +288,155 @@ body { box-sizing: border-box; }
 @media screen and (max-width: 920px) {
   .actors-panel {
     max-width: unset;
+    flex-wrap: nowrap;
+  }
+
+  .actors-panel
+    .actor {
+      margin-left: 16px;
+      margin-right: 16px;
+  }
+
+  /* [WIP] Contourner le problème du nowrap */
+
+  /*.actors-panel__title {
+    display: block;
+  }*/
+
+  .actors-panel__role-label {
+    display: none;
+  }
+}
+
+/*
+ *
+ *  Actor
+ *
+ */
+
+.actor {
+  position: relative;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  border-radius: 64px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+}
+
+.actor__picture {
+  width: 64px;
+  height: 64px;
+  border-radius: 64px;
+  background-image: url('../images/landru.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.7;
+  transition: opacity 200ms;
+  border: 3px solid #808080;
+}
+
+.actor_accused
+  .actor__picture {
+  border: 3px solid #212121;
+}
+
+.actor:hover
+  .actor__picture,
+.actor_active
+  .actor__picture {
+  opacity: 1;
+}
+
+.actor__hover-name {
+  font-family: Synthese, Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+  position: absolute;
+  left: 48px;
+  bottom: 0px;
+  z-index: 1;
+  background: #FAFAFA;
+  padding: 4px 8px;
+  display: none;
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
+}
+
+.actor:hover
+  .actor__hover-name {
+  display: block;
+}
+
+/* [WIP] Centrer les hover labels pour mobile ? */
+
+/*@media screen and (max-width: 920px) {
+  .actor__hover-name {
+    left: unset;
+    text-align: center;
+  }
+}*/
+
+/*
+ *
+ *  Actor bio
+ *
+ */
+
+.actor-bio {
+  display: flex;
+  flex-direction: column;
+  margin-top: 16px;
+}
+
+.actor-bio__name {
+  /*font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: none;
+  color: #212121;*/
+  font-family: 'Libe-Typewriter', monospace;
+  font-size: 22px;
+  line-height: 32px;
+  font-weight: 600;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+  margin-bottom: 8px;
+}
+
+.actor-bio__content {
+  /*font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;*/
+  font-family: 'Libe-Typewriter', monospace;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #212121;
+}
+
+@media screen and (max-width: 920px) {
+  .actor-bio {
+    display: none;
   }
 }
 
