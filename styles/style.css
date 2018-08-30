@@ -159,6 +159,7 @@ body { box-sizing: border-box; }
   }
 
   .page-content__actors {
+    flex-wrap: wrap;
     background: #FFFFFF;
   }
 
@@ -221,33 +222,63 @@ body { box-sizing: border-box; }
  */
 
 .actors-panel {
-  display: flex;
-  flex-wrap: wrap;
+  width: 100%;
   max-width: calc(5 * (64px + 16px));
 }
 
 .actors-panel
-  .actor {
+  .actor-thumb {
     margin-left: 8px;
     margin-right: 8px;
     margin-bottom: 16px;
 }
 
-/* [WIP] Afficher un titre à la section sur mobile */
+.actors-panel__actors-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
 
-/*.actors-panel__title {
+.actors-panel__explainer {
   display: none;
+  align-items: center;
+  justify-content: center;
+  margin-top: 16px;
+}
+
+.actors-panel__explainer img {
+  width: 80px;
+  height: 16px;
+  margin: 0 16px;
+}
+
+.actors-panel__explainer span {
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: none;
+  color: #808080;
+  text-align: center;
+}
+
+.actors-panel__title {
   margin: 0;
+  margin-bottom: 16px;
+  display: block;
+  width: 100%;
   font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
-  font-size: 42px;
-  line-height: 64px;
+  font-size: 28px;
+  line-height: 40px;
   font-weight: 600;
   letter-spacing: 0;
   font-stretch: semi-condensed;
   text-transform: uppercase;
   color: #212121;
   text-decoration: underline;
-}*/
+}
 
 .actors-panel__role-label {
   width: 100%;
@@ -287,21 +318,29 @@ body { box-sizing: border-box; }
 
 @media screen and (max-width: 920px) {
   .actors-panel {
-    max-width: unset;
+    max-width: 100%;
+  }
+
+  .actors-panel__actors-list {
     flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: scroll;
+  }
+
+  .actors-panel__explainer {
+    display: flex;
+    width: 100%;
+  }
+
+  .actors-panel__title {
+    display: none;
   }
 
   .actors-panel
-    .actor {
+    .actor-thumb {
       margin-left: 16px;
       margin-right: 16px;
   }
-
-  /* [WIP] Contourner le problème du nowrap */
-
-  /*.actors-panel__title {
-    display: block;
-  }*/
 
   .actors-panel__role-label {
     display: none;
@@ -310,11 +349,13 @@ body { box-sizing: border-box; }
 
 /*
  *
- *  Actor
+ *  Actor thumb
  *
  */
 
-.actor {
+ /* Default variant */
+
+.actor-thumb {
   position: relative;
   display: flex;
   align-items: center;
@@ -326,31 +367,42 @@ body { box-sizing: border-box; }
   padding: 0;
 }
 
-.actor__picture {
+.actor-thumb__picture {
   width: 64px;
   height: 64px;
   border-radius: 64px;
   background-image: url('../images/landru.jpg');
   background-size: cover;
   background-position: center;
+  background-repeat: no-repeat;
   opacity: 0.7;
   transition: opacity 200ms;
-  border: 3px solid #808080;
+  box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
 }
 
-.actor_accused
-  .actor__picture {
-  border: 3px solid #212121;
+.actor-thumb_accused
+  .actor-thumb__picture {
+    border: 3px solid #212121;
 }
 
-.actor:hover
-  .actor__picture,
-.actor_active
-  .actor__picture {
+.actor-thumb:hover
+  .actor-thumb__picture,
+.actor-thumb_active
+  .actor-thumb__picture {
   opacity: 1;
 }
 
-.actor__hover-name {
+.actor-thumb__hover-name-wrapper {
+  position: absolute;
+  display: flex;
+  flex-wrap: wrap;
+  width: 140px;
+  bottom: 0px;
+  left: 48px;
+  z-index: 1;
+}
+
+.actor-thumb__hover-name {
   font-family: Synthese, Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 16px;
@@ -359,29 +411,65 @@ body { box-sizing: border-box; }
   font-stretch: normal;
   text-transform: none;
   color: #212121;
-  position: absolute;
-  left: 48px;
-  bottom: 0px;
-  z-index: 1;
   background: #FAFAFA;
   padding: 4px 8px;
   display: none;
+  text-align: left;
   box-shadow: 0 0 10px rgba(33, 33, 33, 0.1);
 }
 
-.actor:hover
-  .actor__hover-name {
+.actor-thumb:hover
+  .actor-thumb__hover-name {
   display: block;
 }
 
-/* [WIP] Centrer les hover labels pour mobile ? */
+@media screen and (max-width: 920px) {
+  .actor-thumb {
+    flex-direction: column;
+  }
 
-/*@media screen and (max-width: 920px) {
-  .actor__hover-name {
+  .actor-thumb__hover-name-wrapper {
+    position: relative;
+    width: 136px;
+    bottom: unset;
     left: unset;
+    display: flex;
+    justify-content: center;
+  }
+
+  .actor-thumb__hover-name {
+    display: block;
+    box-shadow: unset;
+    background: unset;
+    max-width: 100%;
     text-align: center;
   }
-}*/
+
+  .actor-thumb_active
+    .actor-thumb__hover-name {
+      font-weight: 600;
+  }
+}
+
+/* Small variant */
+
+.actor-thumb_small {
+  width: 32px;
+  height: 32px;
+  border-radius: 32px;
+}
+
+.actor-thumb_small
+  .actor-thumb__picture {
+    width: 32px;
+    height: 32px;
+    border-radius: 32px;
+}
+
+.actor-thumb_small
+  .actor-thumb__hover-name-wrapper {
+    display: none;
+}
 
 /*
  *
@@ -396,35 +484,18 @@ body { box-sizing: border-box; }
 }
 
 .actor-bio__name {
-  /*font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
   font-size: 22px;
   line-height: 32px;
   font-weight: 600;
   letter-spacing: 0.03em;
   font-stretch: semi-condensed;
   text-transform: none;
-  color: #212121;*/
-  font-family: 'Libe-Typewriter', monospace;
-  font-size: 22px;
-  line-height: 32px;
-  font-weight: 600;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
   color: #212121;
-  margin-bottom: 8px;
 }
 
 .actor-bio__content {
-  /*font-family: 'Synthese', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: none;
-  color: #212121;*/
-  font-family: 'Libe-Typewriter', monospace;
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 20px;
   font-weight: 400;
@@ -501,38 +572,10 @@ body { box-sizing: border-box; }
   color: #808080;
 }
 
-.facts-panel__fact {
-  margin-bottom: 16px;
-  border: 2px solid #999999;
-  background: #ffffff;
+.facts-panel
+  .fact {
+    margin-bottom: 16px;
 }
-
-.facts-panel__fact-title {
-  background: #999999;
-  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 32px;
-  font-weight: 400;
-  letter-spacing: 0.03em;
-  font-stretch: normal;
-  text-transform: normal;
-  color: #FAFAFA;
-  text-align: center;
-}
-
-.facts-panel__fact-content {
-  padding: 16px;
-  margin-top: -2px; /* Compensation of the container's border */
-  font-family: 'Synthese', Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 20px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: normal;
-  color: #212121;
-}
-
 
 .facts-panel__end-margin {
   height: 64px;
@@ -546,4 +589,52 @@ body { box-sizing: border-box; }
   background-size: cover;
   width: 48px;
   height: 24px;
+}
+
+/*
+ *
+ *  Fact
+ *
+ */
+
+.fact {
+  border: 2px solid #999999;
+  background: #ffffff;
+}
+
+.fact__title {
+  background: #999999;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: normal;
+  text-transform: normal;
+  color: #FAFAFA;
+  text-align: center;
+}
+
+.fact__content {
+  padding: 16px;
+  margin-top: -2px; /* Compensation of the container's border */
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: normal;
+  color: #212121;
+}
+
+.fact__actors {
+  margin: 0 16px 16px 16px;
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.fact__actors
+  .actor-thumb {
+    margin-left: 8px;
 }
