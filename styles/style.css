@@ -2,6 +2,28 @@ body { box-sizing: border-box; }
 
 /* [WIP] Prefix all classes with #wrapper */
 
+/*
+  
+  APP STRUCTURE
+
+  #wrapper
+    .sticky-header
+    .header.header_desktop
+    .header.header_mobile
+    .page-content
+      .page-content__intro
+        .introduction-paragraph
+      .page-content__actors
+        .actors-panel
+          .actors-panel__actors-list
+            .actor
+      .page-content__facts
+        .facts-panel
+          .fact
+      .page-content__timeline
+
+*/
+
 #wrapper * { box-sizing: border-box; }
 
 /*
@@ -12,6 +34,10 @@ body { box-sizing: border-box; }
 
 .sticky-header {
   display: none;
+  position: fixed;
+  width: 100%;
+  top: 65px;
+  z-index: 10;
   justify-content: space-between;
   padding: 4px 16px;
   background: #212121;
@@ -468,7 +494,14 @@ body { box-sizing: border-box; }
 
 .actor-thumb_small
   .actor-thumb__hover-name-wrapper {
-    display: none;
+    left: 24px;
+}
+
+@media screen and (max-width: 920px) {
+  .actor-thumb_small
+    .actor-thumb__hover-name-wrapper {
+      display: none;
+  }
 }
 
 /*
@@ -528,6 +561,7 @@ body { box-sizing: border-box; }
   justify-content: flex-start;
   margin-bottom: 64px;
   max-width: 600px;
+  width: 100%;
 }
 
 .facts-panel__title {
@@ -558,22 +592,9 @@ body { box-sizing: border-box; }
   color: #212121;
 }
 
-.facts-panel__date {
-  margin-top: 8px;
-  margin-bottom: 0;
-  background: white;
-  font-family: 'Synthese', Helvetica, Arial, sans-serif;
-  font-size: 18px;
-  line-height: 32px;
-  font-weight: 400;
-  letter-spacing: 0;
-  font-stretch: normal;
-  text-transform: uppercase;
-  color: #808080;
-}
-
 .facts-panel
   .fact {
+    width: 100%;
     margin-bottom: 16px;
 }
 
@@ -597,9 +618,27 @@ body { box-sizing: border-box; }
  *
  */
 
-.fact {
-  border: 2px solid #999999;
+.fact {  
   background: #ffffff;
+}
+
+.fact__date {
+  margin-top: 8px;
+  margin-bottom: 0;
+  background: #ffffff;
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 32px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: normal;
+  text-transform: uppercase;
+  color: #808080;
+  text-align: center;
+}
+
+.fact__card {
+  border: 2px solid #999999;
 }
 
 .fact__title {
@@ -617,7 +656,6 @@ body { box-sizing: border-box; }
 
 .fact__content {
   padding: 16px;
-  margin-top: -2px; /* Compensation of the container's border */
   font-family: 'Synthese', Helvetica, Arial, sans-serif;
   font-size: 16px;
   line-height: 20px;
