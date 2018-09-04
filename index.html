@@ -43,6 +43,7 @@
 <body>
 
   <!----------------------------------------- APP START ------------------------------------------>
+  
   <div id="wrapper" class="wrapper">
     <div class="sticky-header">
       <div class="sticky-header__block">L'affaire Ramadan</div>
@@ -74,30 +75,35 @@
         <div class="actors-panel">
           <div class="actors-panel__actors-list">
             <h2 class="actors-panel__title">Les protagonistes</h2>
-            <!-- Data is injected here via main.js -->
+            <!-- Data is injected here by main.js -->
           </div>
           <div class="actors-panel__explainer">
             <img src="assets/actors-explainer-left-arrow.png">
             <span>Faites défiler les protagonistes</span>
             <img src="assets/actors-explainer-right-arrow.png">
           </div>
-          <div class="actor-bio" style="display: none;">
-            <div class="actor-bio__name">Jean-Michel</div>
-            <div class="actor-bio__content">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nisl ac leo blandit imperdiet. Donec velit orci, vulputate a ultricies ut, semper non justo. Quisque sit amet dapibus ligula, nec bibendum diam. Mauris enim tellus, commodo et luctus non, facilisis ornare nibh. Aliquam orci nunc, feugiat a feugiat a, varius et nibh. Integer at tortor purus. Curabitur maximus arcu vel mauris placerat rutrum. Sed vehicula leo cursus nunc finibus, id laoreet nisl consectetur. Aenean lobortis nec risus vel interdum. Nam cursus eros non ante tempus, a fermentum nibh bibendum.<br/><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nisl ac leo blandit imperdiet. Donec velit orci, vulputate a ultricies ut, semper non justo. Quisque sit amet dapibus ligula, nec bibendum diam. Mauris enim tellus, commodo et luctus non, facilisis ornare nibh. Aliquam orci nunc, feugiat a feugiat a, varius et nibh. Integer at tortor purus. Curabitur maximus arcu vel mauris placerat rutrum. Sed vehicula leo cursus nunc finibus, id laoreet nisl consectetur. Aenean lobortis nec risus vel interdum. Nam cursus eros non ante tempus, a fermentum nibh bibendum.<br/><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nisl ac leo blandit imperdiet. Donec velit orci, vulputate a ultricies ut, semper non justo. Quisque sit amet dapibus ligula, nec bibendum diam. Mauris enim tellus, commodo et luctus non, facilisis ornare nibh. Aliquam orci nunc, feugiat a feugiat a, varius et nibh. Integer at tortor purus. Curabitur maximus arcu vel mauris placerat rutrum. Sed vehicula leo cursus nunc finibus, id laoreet nisl consectetur. Aenean lobortis nec risus vel interdum. Nam cursus eros non ante tempus, a fermentum nibh bibendum.<br/><br/>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et nisl ac leo blandit imperdiet. Donec velit orci, vulputate a ultricies ut, semper non justo. Quisque sit amet dapibus ligula, nec bibendum diam. Mauris enim tellus, commodo et luctus non, facilisis ornare nibh. Aliquam orci nunc, feugiat a feugiat a, varius et nibh. Integer at tortor purus. Curabitur maximus arcu vel mauris placerat rutrum. Sed vehicula leo cursus nunc finibus, id laoreet nisl consectetur. Aenean lobortis nec risus vel interdum. Nam cursus eros non ante tempus, a fermentum nibh bibendum.</div>
-            <button class="actors-panel__filter-facts-by-active-actor">Filtrer</button>
-          </div>
         </div>
       </div>
       <div class="page-content__facts">
         <div class="facts-panel">
+          <div style="width: 100%; height: 56px; background: #EEEEEE; position: sticky; top: 65px">Filtré</div>
           <h2 class="facts-panel__title">L'affaire</h2>
-          <!-- Data is injected here via main.js -->
+          <!-- Data is injected here by main.js -->
           <div class="facts-panel__end-margin"></div>
           <div class="facts-panel__end"></div>
         </div>
       </div>
       <div class="page-content__timeline">
         <div class="timeline">Timeline</div>
+      </div>
+      <div class="page-content__bios">
+        <div class="bios-panel">
+          <button class="bios-panel__close"></button>
+          <div class="bios-panel__actors-list">
+            <!-- Data is injected here by main.js -->
+          </div>
+          <!-- Data is injected here by main.js -->
+        </div>
       </div>
     </div>
   </div>
@@ -106,6 +112,7 @@
   <script type="text/javascript" src="lib/jquery-3.3.1.min.js"></script>
   <script type="text/javascript" src="lib/moment-with-locales-2.22.2.min.js"></script>
   <script type="text/javascript" src="scripts/main.js"></script>
+
   <!------------------------------------------ APP END ------------------------------------------->
 
   <!-- Libé header injection -->
