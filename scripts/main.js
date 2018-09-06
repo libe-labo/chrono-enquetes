@@ -1,20 +1,6 @@
 'use strict'
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- *
- *
- *   REQUEST DATA
- *
- *
- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
-
-$.ajax({
-  method: 'GET',
-  url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQiKKlxaKWpKKQIPM5JwMU1JDKCWwtEDTG7CgU-5jmTgWhlB3BVyzJb5TbmNoplKJ668Xnm809JLa1j/pub?gid=2063391218&single=true&output=tsv'
-}).then(res => init(res))
-  .catch(err => console.log(err))
-// [WIP] Gérer la phase de chargement des données
-// [WIP] Gérer la possiblité d'une erreur de chargement
+moment.locale('fr')
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -27,34 +13,58 @@ $.ajax({
 const state = {}
 function setState (key, val) {
   switch (key) {
+    case 'actors':
+      populateTemplate(val, state.facts || [])
+      break
+    case 'facts':
+      populateTemplate(state.actors || [], val)
+      break
     case 'activeBio':
       activateBio(val)
       break
     case 'actorFilter':
-      console.log('set actor filter on val: ', val)
       activateFilter(val)
       break
     default:
   }
+  const pState = JSON.parse(JSON.stringify(state))
   state[key] = val
+  // console.log('\n\n============================')
+  // console.log(moment().format('YYYY/MM/DD, HH:mm:ss:SS'))
+  // console.log('Set', key)
+  // console.log('To', val)
+  // console.log('----------------------------')
+  // console.log({pState, state})
 }
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  *
- *   FILL TEMPLATE WITH DATA & SET INTERACTIONS
+ *   REQUEST DATA
  *
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-function init (rawData) {
-  moment.locale('fr')
-  const { actors, facts } = parse(rawData)
-
-  populateTemplate(actors, facts)
+$.ajax({
+  method: 'GET',
+  url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQiKKlxaKWpKKQIPM5JwMU1JDKCWwtEDTG7CgU-5jmTgWhlB3BVyzJb5TbmNoplKJ668Xnm809JLa1j/pub?gid=2063391218&single=true&output=tsv'
+}).then(res => {
+  const { actors, facts } = parse(res)
+  setState('actors', actors)
+  setState('facts', facts)
   setState('activeBio', null)
   setState('actorFilter', null)
-}
+  setState('bioTouch', {
+    active: false,
+    start: { x: undefined, y: undefined },
+    pPos: { x: undefined, y: undefined },
+    pos: { x: undefined, y: undefined }
+  })
+}).catch(err => console.log(err))
+// [WIP] Gérer la phase de chargement des données
+// [WIP] Gérer la possiblité d'une erreur de chargement
+// [WIP] Set interval in order to get the height of the menu and adjust sticky elements offset
+// [WIP] Store actors and facts inside state
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -140,7 +150,7 @@ function FactTemplate (props) {
 function FactSpacerTemplate (props) {
   return $(`
 <div
-  class="fact__spacer"
+  class="fact-spacer"
   style="height: ${props.marginBottom}px">
 </div>`)}
 
@@ -173,7 +183,8 @@ function parse (rawData) {
       const object = {}
       line.forEach((elt, j) => {
         const key = table[1][j]
-        object[key] = elt
+        if (key === 'id') object[key] = parseInt(elt, 10) || undefined
+        else object[key] = elt
       })
       return object
     }).filter(elt => elt)
@@ -188,6 +199,7 @@ function emptyActorsPanel () {
 function emptyFactsPanel () {
   $('.facts-panel__year').remove()
   $('.facts-panel .fact').remove()
+  $('.fact-spacer').remove()
 }
 
 function emptyBiosPanel () {
@@ -414,8 +426,14 @@ function activateBio (id) {
   // If already active, do nothing, STOP HERE
   if (id === state.activeBio) return
   // Close opened bio in actors panel (desktop)
-  $('.actor-thumb_bio-open').removeClass('actor-thumb_bio-open')
+  $('.actor-thumb_bio-open')
+    .removeClass('actor-thumb_bio-open')
   // If 'null' to activate, hide bios panel (mobile), STOP HERE
+  if (id === null) {
+    $('.page-content__bios_visible')
+      .removeClass('page-content__bios_visible')
+  }
+  /* [WIP] do this better
   if (id === null) {
     $('.page-content__bios_visible')
       .animate({ opacity: 0 }, 400, e => {
@@ -425,8 +443,25 @@ function activateBio (id) {
       })
     return 
   }
+  */
+
+  // Open the bios on the right actor thumbs
+  $(`.actor-thumb[data-id="${id}"]`)
+    .addClass('actor-thumb_bio-open')
+
+  /* [WIP] do this better
   // Stop all animations and remove style attributes added by jQuery animations
-  $('.bios-panel__bio').stop().attr('style', '')
+  $('.bios-panel__bio').stop().css({
+    opacity: '',
+    height: ''
+  })
+  */
+
+  if (state.activeBio === null) {
+    $('.page-content__bios')
+      .addClass('page-content__bios_visible')
+  }
+  /* [WIP] do this better
   // If no bio is currently active, show the bios panel (mobile) 
   if (state.activeBio === null) {
     $('.page-content__bios')
@@ -437,9 +472,11 @@ function activateBio (id) {
           .attr('style', '')
       })
   }
-  // Open the bios on the right actor thumbs
-  $(`.actor-thumb[data-id="${id}"]`)
-    .addClass('actor-thumb_bio-open')
+  */
+
+  const prevPanel = $('.bios-panel__bio_visible').removeClass('bios-panel__bio_visible')
+  const newPanel = $(`.bios-panel__bio[data-id="${id}"`).addClass('bios-panel__bio_visible')
+  /* [WIP] do this better
   // Re-arrange bios order in bios panel (mobile) (so that they appear above the prev one)
   const newOrder = []
   $('.bios-panel__bio').each((i, elt) => {
@@ -448,6 +485,7 @@ function activateBio (id) {
   newOrder.unshift($(`.bios-panel__bio[data-id="${id}"`))
   $('.bios-panel__bio').detach()
   newOrder.forEach(elt => $('.bios-panel').append(elt))
+
   // Animate previous bio and next bio in bios panel (mobile)
   const prevPanel = $('.bios-panel__bio_visible')
   const newPanel = $(`.bios-panel__bio[data-id="${id}"`)
@@ -468,6 +506,9 @@ function activateBio (id) {
       .hide()
       .slideDown(400, e => newPanel.addClass('bios-panel__bio_visible').attr('style', ''))
   }
+  */
+
+  /* [WIP] do it better
   // Center actor thumbs list in bios panel (mobile)
   const bioPan = {}
   bioPan.itemWidth = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).width(),
@@ -490,36 +531,188 @@ function activateBio (id) {
   actPan.offsetDiff = actPan.targetOffset - actPan.itemOffset,
   actPan.targetScroll = actPan.listScroll - actPan.offsetDiff
   $('.actors-panel__actors-list').animate({ scrollLeft: actPan.targetScroll }, 400)
+  */
 }
 
 function activateFilter (id) {
-  console.log('activate filter')
+  // If already active, do nothing, STOP HERE
+  if (id === state.actorFilter) return
+  // If 'null' to activate, hide filter panel, STOP HERE
+  if (id === null) {
+    populateFactsPanel(state.actors, state.facts)
+    $('.facts-panel__filter-value').html('')
+    $('.facts-panel__filter-panel').css({
+      opacity: 0,
+      zIndex: -1000
+    })
+    return
+  }
+  // Find actor by it's ID
+  const actor = state.actors.find(actor => actor.id === id)
+  const actorName = actor ? actor.name : undefined
+  // Find the facts related to the actor
+  const actorFacts = state.facts.filter(fact => {
+    const isRelatedToActor = fact.related_actors_id
+      .split(';')
+      .some(relId => parseInt(relId, 10) === id)
+    return isRelatedToActor
+  })
+  // Update dom
+  $('.facts-panel__filter-value').html(actorName)
+  $('.facts-panel__filter-panel').attr('style', '')
+  populateFactsPanel(state.actors, actorFacts)
 }
 
 function setInteractions () {
-  $('.actor-thumb').on('click', function (e) {
-    e.preventDefault()
-    if ($(e.target).hasClass('actor-thumb__picture')) {
-      const actorId = $(this).data('id')
-      setState('activeBio', actorId)
-    }
-  })
-  $('.bios-panel__close').on('click', function (e) {
-    e.preventDefault()
-    setState('activeBio', null)
-  })
-  $('.actor-thumb__bio-close').on('click', function (e) {
-    e.preventDefault()
-    setState('activeBio', null)
-  })
-  $('.actor-thumb__filter-facts').on('click', function (e) {
-    e.preventDefault()
-    const actorId = $(this).parents('.actor-thumb').data('id')
-    setState('actorFilter', actorId)
-  })
-  $('.bios-panel__filter-facts').on('click', function (e) {
-    e.preventDefault()
-    const actorId = $(this).parents('.bios-panel__bio').data('id')
-    setState('actorFilter', actorId)
-  })
+  // Open bio on actor thumb click
+  $('.actor-thumb')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      if ($(e.target).hasClass('actor-thumb__picture')) {
+        const actorId = $(this).data('id')
+        setState('activeBio', actorId)
+      }
+    })
+
+  /* [WIP] do it better
+  // Switch active bios on bios panel swipe
+  $('.bios-panel__bio')
+    .unbind()
+    
+  $('.bios-panel__bio')
+    .on('touchstart', function (e) {
+      const x = e.originalEvent.touches[0].screenX
+      const y = e.originalEvent.touches[0].screenY
+      setState('bioTouch', Object.assign({}, state.bioTouch, {
+        active: true,
+        start: { x, y },
+        pPos: { x: undefined, y: undefined },
+        pos: { x, y }
+      }))
+    })
+
+  $('.bios-panel__bio')
+    .on('touchmove', function (e) {
+      const x = e.originalEvent.touches[0].screenX
+      const y = e.originalEvent.touches[0].screenY
+      const pX = state.bioTouch.pos.x
+      const pY = state.bioTouch.pos.y
+      const sX = state.bioTouch.start.x
+      const sY = state.bioTouch.start.y
+      const deltaX = x - sX
+      const deltaY = y - sY
+      setState('bioTouch', Object.assign({}, state.bioTouch, {
+        pPos: { x: pX, y: pY },
+        pos: { x, y }
+      }))
+      const containerWidth = $('.bios-panel').width()
+      const offsetOnWidth = Math.abs(deltaX) / containerWidth
+      const transform = `translate(${deltaX}px)`
+      const opacity = 1 - offsetOnWidth
+      $('.bios-panel__bio_visible').css({ transform, opacity })
+    })
+
+  $('.bios-panel__bio')
+    .on('touchend', function (e) {
+      const sX = state.bioTouch.start.x
+      const sY = state.bioTouch.start.y
+      const x = state.bioTouch.pos.x
+      const y = state.bioTouch.pos.y
+      const diffX = x - sX
+      setState('bioTouch', Object.assign({}, state.bioTouch, {
+        active: false,
+        start: { x: undefined, y: undefined },
+        pPos: { x, y },
+        pos: { x: undefined, y: undefined }
+      }))
+      if (diffX < -80) {
+        if (state.activeBio >= state.actors.length) {
+          setState('activeBio', 1)
+        } else {
+          setState('activeBio', state.activeBio + 1)
+        }
+        return
+      }
+      if (diffX > 80) {
+        if (state.activeBio <= 1) {
+          setState('activeBio', state.actors.length)
+        } else {
+          setState('activeBio', state.activeBio - 1)
+        }
+        return
+      }
+      replaceElt($('.bios-panel__bio_visible'))
+      function replaceElt (element) {
+        const transformRegexp = /transform: translate\(-?[0-9]*(.[0-9]*)?px\);/
+        const translateVal = parseFloat(
+          element.attr('style')
+            .match(transformRegexp)[0]
+            .split(/transform: translate\(/)[1]
+            .split(/px\);/)[0],
+          10
+        )
+        const newTranslate = translateVal / 2
+        const containerWidth = $('.bios-panel').width()
+        const offsetOnWidth = newTranslate / containerWidth
+        const transform = `translate(${newTranslate}px)`
+        const opacity = 1 - offsetOnWidth
+        if (Math.abs(translateVal) > 1) {
+          if (!state.bioTouch.active) {
+            element.css({ transform, opacity })
+            setTimeout(() => replaceElt(element), 20)
+          }
+        } else {
+          element.attr('style', '')
+        }
+      }
+    })
+  */
+  // Close bio on bios panel close button click
+  $('.bios-panel__close')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      setState('activeBio', null)
+    })
+  // Close bio on bios panel background click
+  $('.page-content__bios')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      if ($(e.target).hasClass('page-content__bios')) {
+        setState('activeBio', null)
+      }
+    })
+  // Close bios on floating bios close button click
+  $('.actor-thumb__bio-close')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      setState('activeBio', null)
+    })
+  // Set actor filter on floating bio filter button click
+  $('.actor-thumb__filter-facts')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      const actorId = $(this).parents('.actor-thumb').data('id')
+      setState('actorFilter', actorId)
+      setState('activeBio', null)
+    })
+  // Set actor filter on bios panel filter button click
+  $('.bios-panel__filter-facts')
+    .unbind()
+    .on('click', function (e) {
+      e.preventDefault()
+      const actorId = $(this).parents('.bios-panel__bio').data('id')
+      setState('actorFilter', actorId)
+      setState('activeBio', null)
+    })
+  // Reset actor filter on filter panel reset button click
+  $('.facts-panel__filter-close')
+    .unbind()
+    .on('click', function (e) {
+      setState('actorFilter', null)
+    })
 }

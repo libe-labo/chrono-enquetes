@@ -3,27 +3,27 @@ body { box-sizing: border-box; }
 /* [WIP] Prefix all classes with #wrapper */
 
 /*
-  
-  APP STRUCTURE
-
-  #wrapper
-    .sticky-header
-    .header.header_desktop
-    .header.header_mobile
-    .page-content
-      .page-content__intro
-        .introduction-paragraph
-      .page-content__actors
-        .actors-panel
-          .actors-panel__actors-list
-            .actor-thumb
-              .actor-bio
-      .page-content__facts
-        .facts-panel
-          .fact
-      .page-content__timeline
-
-*/
+ *  
+ *  APP STRUCTURE
+ *
+ *  #wrapper
+ *    .sticky-header
+ *    .header.header_desktop
+ *    .header.header_mobile
+ *    .page-content
+ *      .page-content__intro
+ *        .introduction-paragraph
+ *      .page-content__actors
+ *        .actors-panel
+ *          .actors-panel__actors-list
+ *            .actor-thumb
+ *              .actor-bio
+ *      .page-content__facts
+ *        .facts-panel
+ *          .fact
+ *      .page-content__timeline
+ *
+ */
 
 #wrapper * { box-sizing: border-box; }
 
@@ -629,6 +629,7 @@ body { box-sizing: border-box; }
   background: #EEEEEE;
   display: flex;
   flex-wrap: wrap;
+  overflow-x: hidden;
 }
 
 .bios-panel__bio {
