@@ -40,6 +40,49 @@ function setState (key, val) {
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
  *
+ *   ADJUST TIMELINE SIZE
+ *
+ *
+ * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
+
+function resizeTimeline () {
+  const $window = $(window)
+  const $timeline = $('.timeline-panel')
+  if ($window.width() > 920) {
+    const $navigation = $('div[role="navigation"] .header-fix-nav')
+    const $header = $('.header_desktop')
+    const $pageContentTimeline = $('.page-content__timeline')
+    const windowHeight = $window.outerHeight()
+    const navHeight = $navigation.outerHeight()
+    const headerHeight = $header.outerHeight()
+    const panelPaddingTop = parseInt(
+      $pageContentTimeline
+        .css('paddingTop')
+        .split('px')[0]
+      , 10
+    )
+    const panelPaddingBottom = parseInt(
+      $pageContentTimeline
+        .css('paddingBottom')
+        .split('px')[0]
+      , 10
+    )
+    const timelineHeight = windowHeight
+      - navHeight
+      - headerHeight
+      - panelPaddingTop
+      - panelPaddingBottom
+    $timeline.css({ height: timelineHeight })
+    return
+  }
+  $timeline.css({ height: '' })
+}
+
+setInterval(resizeTimeline, 100)
+
+/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+ *
+ *
  *   REQUEST DATA
  *
  *
@@ -409,6 +452,10 @@ function populateActorsPanel (actors, facts) {
   setInteractions()
 }
 
+function populateTimeline (facts) {
+  console.log('populate timeline')
+}
+
 function populateTemplate (actors, facts) {
   /* Empty template */
   emptyTemplate()
@@ -417,6 +464,7 @@ function populateTemplate (actors, facts) {
   populateActorsPanel(actors, facts)
   populateBiosPanel(actors, facts)
   populateFactsPanel(actors, facts)
+  populateTimeline(facts)
 
   /* Set event listeners */
   setInteractions()
@@ -431,11 +479,6 @@ function activateBio (id) {
   // If 'null' to activate, hide bios panel (mobile), STOP HERE
   if (id === null) {
     $('.page-content__bios_visible')
-      .removeClass('page-content__bios_visible')
-  }
-  /* [WIP] do this better
-  if (id === null) {
-    $('.page-content__bios_visible')
       .animate({ opacity: 0 }, 400, e => {
         $('.page-content__bios_visible')
           .removeClass('page-content__bios_visible')
@@ -443,7 +486,6 @@ function activateBio (id) {
       })
     return 
   }
-  */
 
   // Open the bios on the right actor thumbs
   $(`.actor-thumb[data-id="${id}"]`)
@@ -457,11 +499,6 @@ function activateBio (id) {
   })
   */
 
-  if (state.activeBio === null) {
-    $('.page-content__bios')
-      .addClass('page-content__bios_visible')
-  }
-  /* [WIP] do this better
   // If no bio is currently active, show the bios panel (mobile) 
   if (state.activeBio === null) {
     $('.page-content__bios')
@@ -472,7 +509,6 @@ function activateBio (id) {
           .attr('style', '')
       })
   }
-  */
 
   const prevPanel = $('.bios-panel__bio_visible').removeClass('bios-panel__bio_visible')
   const newPanel = $(`.bios-panel__bio[data-id="${id}"`).addClass('bios-panel__bio_visible')
@@ -508,7 +544,6 @@ function activateBio (id) {
   }
   */
 
-  /* [WIP] do it better
   // Center actor thumbs list in bios panel (mobile)
   const bioPan = {}
   bioPan.itemWidth = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).width(),
@@ -531,7 +566,6 @@ function activateBio (id) {
   actPan.offsetDiff = actPan.targetOffset - actPan.itemOffset,
   actPan.targetScroll = actPan.listScroll - actPan.offsetDiff
   $('.actors-panel__actors-list').animate({ scrollLeft: actPan.targetScroll }, 400)
-  */
 }
 
 function activateFilter (id) {
