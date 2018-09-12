@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Calque_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 32 32" style="enable-background:new 0 0 32 32;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFFFFF;}
+	.st1{fill:#E3234A;}
+</style>
+<symbol  id="Nouveau_symbole_33" viewBox="-19.9 -16 39.9 31.9">
+	<path class="st0" d="M-10-16c0,2,4.5,3.7,10.1,3.7c5.6,0,10.1-1.6,10.1-3.7H-10z"/>
+	<path class="st0" d="M-8.1-3.1C-8.1-5.2-10.7-7-14-7c-3.3,0-5.9,1.8-5.9,3.9H-8.1z"/>
+	<g>
+		<path class="st0" d="M2.1-12.8c0-0.9-0.7-1.6-1.5-1.6h-1c-0.9,0-1.6,0.7-1.5,1.6l1,27.1c0,0.9,0.5,1.6,1,1.6c0.5,0,1-0.7,1-1.6
+			L2.1-12.8z"/>
+	</g>
+	<path class="st0" d="M2.9,6.5c0-1.5-1.2-2.8-2.8-2.8c-1.5,0-2.8,1.2-2.8,2.8c0,1.5,1.2,2.8,2.8,2.8C1.6,9.3,2.9,8,2.9,6.5z"/>
+	<g>
+		<path class="st0" d="M18,11.2c0-0.3-0.7-0.6-1.6-0.6h-32.5c-0.9,0-1.6,0.3-1.6,0.6c0,0.3,0.7,0.6,1.6,0.6h32.5
+			C17.3,11.7,18,11.5,18,11.2z"/>
+	</g>
+	<g>
+		<polygon class="st0" points="-13.3,10.6 -14.5,10.6 -19.9,-3.1 -18.7,-3.1 		"/>
+		<rect x="-14.5" y="-3.1" class="st0" width="1.3" height="13.7"/>
+		<polygon class="st0" points="-13.3,10.6 -14.5,10.6 -9.4,-3.1 -8.1,-3.1 		"/>
+	</g>
+	<path class="st0" d="M19.9-3.1C19.9-5.2,17.3-7,14-7S8.1-5.2,8.1-3.1H19.9z"/>
+	<g>
+		<polygon class="st0" points="14.7,10.6 13.5,10.6 8.1,-3.1 9.4,-3.1 		"/>
+		<rect x="13.5" y="-3.1" class="st0" width="1.3" height="13.7"/>
+		<polygon class="st0" points="14.7,10.6 13.5,10.6 18.6,-3.1 19.9,-3.1 		"/>
+	</g>
+</symbol>
+<g>
+	<circle class="st1" cx="16" cy="16" r="16"/>
+	
+		<use xlink:href="#Nouveau_symbole_33"  width="39.9" height="31.9" id="XMLID_66_" x="-19.9" y="-16" transform="matrix(0.6076 0 0 -0.6076 15.6318 15.6441)" style="overflow:visible;"/>
+</g>
+</svg>

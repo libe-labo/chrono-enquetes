@@ -25,10 +25,6 @@ body { box-sizing: border-box; }
  *
  */
 
-@media screen and (max-width: 920px) {
-  html, body { overflow-x: hidden; }
-}
-
 #wrapper * { box-sizing: border-box; }
 #wrapper {
   max-width: 100%;
@@ -211,7 +207,7 @@ body { box-sizing: border-box; }
 
 .page-content__actors > *,
 .page-content__timeline > * {
-  
+  position: -webkit-sticky;
   position: sticky;
   top: 153px;
 }
@@ -738,7 +734,7 @@ body { box-sizing: border-box; }
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 64px;
+  margin-bottom: 200px;
   max-width: 600px;
   width: 100%;
   position: relative;
@@ -760,6 +756,7 @@ body { box-sizing: border-box; }
 
 .facts-panel__filter-panel {
   z-index: 2;
+  position: -webkit-sticky;
   position: sticky;
   top: 113px;
   height: 56px;
@@ -928,18 +925,283 @@ body { box-sizing: border-box; }
   width: 100%;
   max-width: 184px;
   margin: 0 auto;
+  background: #EBEBEB;
+  display: flex;
+  flex-direction: column;
 }
 
-.timeline-panel
-  canvas {
-    width: 100%;
-    height: 100%;
-    background: #EBEBEB;
+.timeline-panel__begin-date {
+  margin: 8px auto;
+  padding: 4px;
+  background: #FFFFFF;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: normal;
+  color: #212121;
+  text-align: center;
 }
+
+.timeline-panel__events {
+  position: relative;
+  margin: 16px 0;
+  flex-grow: 1;
+}
+
+.timeline-panel__events-cursor {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-repeat: no-repeat;
+  transform: translate(-50%, -50%);
+}
+
+.timeline-panel__events-cursor_desktop {
+  display: block;
+  background-image: url('../assets/timeline-desktop-cursor.svg');
+  left: calc(100% + 4px + 8px);
+}
+
+.timeline-panel__events-cursor_mobile {
+  display: none;
+  background-image: url('../assets/timeline-mobile-cursor.svg');
+  top: -24px;
+}
+
+.timeline-panel__event {
+  position: absolute;
+}
+
+.timeline-panel__event_desktop {
+  display: block;
+  cursor: pointer;
+  width: 100%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: rgba(33, 33, 33, .4);
+  transition: background 200ms;
+  z-index: 1;
+}
+
+.timeline-panel__event_mobile {
+  display: none;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
+  background: #FFFFFF;
+  border-radius: 3px;
+}
+
+.timeline-panel__event:hover {
+  background: rgba(33, 33, 33, .7);
+  z-index: 3;
+}
+
+.timeline-panel__event_important {
+  background: rgba(227, 35, 74, .8);
+  transition: background 200ms;
+}
+
+.timeline-panel__event_important:hover {
+  background: rgba(227, 35, 74, 1);
+}
+
+.timeline-panel__event_start {
+  z-index: 2;
+}
+
+.timeline-panel__event_start::after {
+  content: " ";
+  position: absolute;
+  background-image: url('../assets/timeline-case-start-icon.svg');
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 32px;
+  width: 32px;
+  display: block;
+}
+
+.timeline-panel__event_trial {
+  z-index: 2;
+}
+
+.timeline-panel__event_trial::after {
+  content: " ";
+  position: absolute;
+  background-image: url('../assets/timeline-trial-icon.svg');
+  transform: translate(-50%, -50%);
+  left: 50%;
+  top: 50%;
+  height: 32px;
+  width: 32px;
+  display: block;
+}
+
+.timeline-panel__event-hover {
+  position: absolute;
+  left: 24px;
+  bottom: 8px;
+  max-width: calc(100% - 48px);
+  cursor: pointer;
+  display: none;
+  padding: 4px;
+  background: #FFFFFF;
+}
+
+.timeline-panel__event-hover-date {
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: normal;
+  color: #808080;
+}
+
+.timeline-panel__event-hover-title {
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: normal;
+  color: #212121;
+}
+
+.timeline-panel__event:hover
+  .timeline-panel__event-hover {
+    display: block;
+}
+
+.timeline-panel__events-date {
+  position: absolute;
+  padding: 4px;
+  background: #FFFFFF;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: normal;
+  color: #212121;
+  text-align: center;
+  transform: translate(-50%, -50%);
+  opacity: .6;
+  transition: opacity 200ms;
+  left: 50%;
+}
+
+.timeline-panel__events-date:hover {
+  z-index: 2;
+  opacity: 1;
+}
+
+.timeline-panel__end-date {
+  margin: 8px auto;
+  padding: 4px;
+  background: #FFFFFF;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 16px;
+  font-weight: 400;
+  letter-spacing: 0.03em;
+  font-stretch: semi-condensed;
+  text-transform: normal;
+  color: #212121;
+  text-align: center;
+}
+
 
 @media screen and (max-width: 920px) {
   .timeline-panel {
     max-width: unset;
-    height: 32px;
+    padding: 12px 0;
+    background: #212121;
+    flex-direction: row;
   }
+
+  .timeline-panel__begin-date {
+    margin: auto 12px;
+  }
+
+  .timeline-panel__events {
+    margin: auto 24px;
+    height: 6px;
+  }
+
+  .timeline-panel__events-cursor_desktop {
+    display: none;
+  }
+
+  .timeline-panel__events-cursor_mobile {
+    display: block;
+  }
+
+  .timeline-panel__end-date {
+    margin: auto 12px;
+  }
+
+  .timeline-panel__event {
+    z-index: 2;
+  }
+
+  .timeline-panel__event:hover {
+    z-index: 1;
+    background: #FFFFFF;
+  }
+
+  .timeline-panel__event_important:hover {
+    z-index: 1;
+    background: #E3234A;
+  }
+
+  .timeline-panel__event:hover
+    .timeline-panel__event-hover {
+      display: none;
+  }
+
+  .timeline-panel__event_desktop {
+    display: none;
+  }
+
+  .timeline-panel__event_mobile {
+    display: block;
+  }
+
+  .timeline-panel__events-date {
+    display: none;
+  }
+
+  .timeline-panel__event_start::after {
+    height: 24px;
+    width: 24px;
+  }
+
+  .timeline-panel__event_trial::after {
+    height: 24px;
+    width: 24px;
+  }
+}
+
+/*
+ *
+ *  Scroller (helper for dev purpose only)
+ *
+ */
+
+.scroller {
+  z-index: 100;
+  width: 100%;
+  height: 2px;
+  background: blue;
+  opacity: .6;
+  position: fixed;
+  display: none;
 }
