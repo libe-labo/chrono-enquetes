@@ -66,7 +66,6 @@ $.ajax({
 // [WIP] Gérer la phase de chargement des données
 // [WIP] Gérer la possiblité d'une erreur de chargement
 // [WIP] Set interval in order to get the height of the menu and adjust sticky elements offset
-// [WIP] Store actors and facts inside state
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -477,6 +476,8 @@ function populateTimeline (facts) {
     if (fact.type === 'Procès') classes.push('timeline-panel__event_trial')
     const dom = $(`
       <div
+        data-id="${fact.id}"
+        data-timestamp="${fact.timestamp}"
         class="${[...classes, 'timeline-panel__event_desktop'].join(' ')}"
         style="${desktopStyle}">
         <div class="timeline-panel__event-hover">
@@ -485,6 +486,8 @@ function populateTimeline (facts) {
         </div>
       </div>
       <div
+        data-id="${fact.id}"
+        data-timestamp="${factDate}"
         class="${[...classes, 'timeline-panel__event_mobile'].join(' ')}"
         style="${mobileStyle}">
         <div class="timeline-panel__event-hover">
@@ -682,6 +685,21 @@ function setInteractions () {
       moveTimelineCursors(e),
       10
     ))
+  // Automatically scroll when timeline is clicked
+  $('.timeline-panel__begin-date')
+    .unbind()
+    .on('click', e => $('html, body')
+      .animate({ scrollTop: 0 }, 1000))
+  $('.timeline-panel__end-date')
+    .unbind()
+    .on('click', e => $('html, body')
+      .animate({ scrollTop: $(document).height() }, 1000))
+  $('.timeline-panel__event')
+    .unbind()
+    .on('click', function (e) {
+      const id = $(this).data('id')
+      scrollToFact(id)
+    })
 }
 
 function updateFactsScrollLevels () {
@@ -747,4 +765,19 @@ function moveTimelineCursors (e, range = state.timesAndOffsets) {
     }
   })
   $('.scroller').css({ top: `${compScrollRatio * 100}vh` })
+}
+
+function scrollToFact (id) {
+  const range = state.timesAndOffsets
+  range.forEach(fact => {
+    if (fact.id === id) {
+      const windowHeight = $(window).height()
+      const documentHeight = $(document).height()
+      const { offset, height } = fact
+      const factCenterOffset = offset + height / 2
+      const target = factCenterOffset - windowHeight / 2
+      $('html, body')
+        .animate({ scrollTop: target }, 1000)
+    }
+  })
 }
