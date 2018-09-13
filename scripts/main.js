@@ -66,7 +66,7 @@ function requestData () {
   setState('loading', true)
   $.ajax({
     method: 'GET',
-    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQiKKlxaKWpKKQIPM5JwMU1JDKCWwtEDTG7CgU-5jmTgWhlB3BVyzJb5TbmNoplKJ668Xnm809JLa1j/pub?gid=2063391218&single=true&output=tsv'
+    url: customData.dataUrl
   }).then(res => {
     const { actors, facts } = parse(res)
     setState('loading', false)
@@ -75,7 +75,7 @@ function requestData () {
     setState('activeBio', null)
     setState('actorFilter', null)
   }).catch(err => {
-    window.location.reload()
+    // window.location.reload()
   })
 }
 requestData()
@@ -385,7 +385,7 @@ function populateActorsPanel (actors, facts) {
     categorizedActors.accus_e &&
     categorizedActors.accus_e.length) {
     ActorRoleLabelTemplate({
-      label: `L'accusé`
+      label: customData.rolesLabels.accused
     }).appendTo('.actors-panel__actors-list')
     categorizedActors.accus_e.forEach(actor => {
       ActorThumbTemplate(actor)
@@ -397,7 +397,7 @@ function populateActorsPanel (actors, facts) {
     categorizedActors.plaignant_e &&
     categorizedActors.plaignant_e.length) {
     ActorRoleLabelTemplate({
-      label: `Les plaignantes`
+      label: customData.rolesLabels.complainants
     }).appendTo('.actors-panel__actors-list')
     categorizedActors.plaignant_e.forEach(actor => {
       ActorThumbTemplate(actor)
@@ -409,7 +409,7 @@ function populateActorsPanel (actors, facts) {
     categorizedActors.temoin &&
     categorizedActors.temoin.length) {
     ActorRoleLabelTemplate({
-      label: `Les témoins`
+      label: customData.rolesLabels.witnesses
     }).appendTo('.actors-panel__actors-list')
     categorizedActors.temoin.forEach(actor => {
       ActorThumbTemplate(actor)
