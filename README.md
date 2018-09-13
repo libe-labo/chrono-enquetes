@@ -66,4 +66,4 @@ Dans votre navigateur, rendez vous sur [http://localhost:8000](http://localhost:
 
 ### Authors
 
-* **Maxime Fabas** - *Initial work* - [Libé works](https://github.com/libe-max) - [Other works](https://github.com/maximefabas)
+* **Maxime Fabas** - *Initial work* - [Libé works](https://github.com/libe-max), [Other works](https://github.com/maximefabas)
