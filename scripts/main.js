@@ -784,7 +784,7 @@ function moveTimelineCursors (e, range = state.timesAndOffsets) {
   const factsPanelHeight = $('.facts-panel').height()
   const scroll = $(window).scrollTop()
   const scrollRatio = scroll / (documentHeight - windowHeight)
-  const compScrollRatio = 0.5 * scrollRatio + 0.15
+  const compScrollRatio = 0.5 * scrollRatio + 0.25
   const compScroll = (compScrollRatio * windowHeight) + scroll
   const beginTimestamp = range[0]
     ? range[0].timestamp
