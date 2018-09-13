@@ -528,7 +528,7 @@ body,
   width: 64px;
   height: 64px;
   border-radius: 64px;
-  background-image: url('../images/landru.jpg');
+  background-image: url('../assets/silhouette.svg');
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
