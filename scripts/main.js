@@ -75,7 +75,7 @@ function requestData () {
     setState('activeBio', null)
     setState('actorFilter', null)
   }).catch(err => {
-    // window.location.reload()
+    setTimeout(window.location.reload, 2000)
   })
 }
 requestData()
