@@ -89,6 +89,48 @@ requestData()
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
+/* -------------------- Share article module --------------------*/
+/* Facebook share */
+$('.share-article__facebook').on('click', function (e) {
+  const articleUrl = $('meta[property="og:url"]').attr('content')
+  const facebookUrl = 'http://www.facebook.com/sharer/sharer.php?u=' + articleUrl
+  const features = 'width=575,height=400,menubar=no,toolbar=no'
+  window.open(facebookUrl, '', features)
+})
+/* Twitter share */
+$('.share-article__twitter').on('click', function (e) {
+  const features = 'width=575,height=400,menubar=no,toolbar=no'
+  const txt = $('meta[name="custom:tweet-text"]').attr('content')
+  const url = $('meta[name="twitter:url"]').attr('content')
+  const via = $('meta[name="custom:tweet-via"]').attr('content')
+  const tweet = `${txt} ${url} via ${via}`
+  const twitterUrl = `https://twitter.com/intent/tweet?original_referer=&text=${tweet}`
+  window.open(twitterUrl, '', features)
+})
+/* Send article via mail */
+$('.share-article__mail').on('click', function (e) {
+  if ($(e.target).prop('tagName') === 'A') return
+  const articleTitle = $('meta[property="og:title"').attr('content')
+  const articleDescription = $('meta[property="og:description"]').attr('content')
+  const articleUrl = $('meta[property="og:url"]').attr('content')
+  const mailSubject = 'Lu sur Libération.fr'
+  const mailBody = articleTitle +
+    '%0D%0A%0D%0A' +
+    articleDescription +
+    '%0D%0A%0D%0A' +
+    'Retrouvez cet article sur le site de Libération :' +
+    '%0D%0A' +
+    articleUrl
+  const href = `mailto:?subject=${mailSubject}&body=${mailBody}`
+  $('<a>click</a>')
+    .attr('href', href)
+    .appendTo(this)
+  this.querySelector('a').click()
+  $(this).find('a').remove()
+})
+/* Print article */
+$('.share-article__print').on('click', function (e) { window.print() })
+
 /* -------------------- Actor role label -------------------- */
 function ActorRoleLabelTemplate (props) {
   return $(`
