@@ -8,9 +8,6 @@
  *
  * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * */
 
-/* Sety moment locale to fr */
-moment.locale('fr')
-
 /* Define state and state setter */
 const state = {}
 function setState (key, val) {
@@ -30,42 +27,59 @@ function setState (key, val) {
       break
     case 'timesAndOffsets':
       moveTimelineCursors(null, val)
+      break
+    case 'loading':
+      toggleLoadingState(val)
+      break
     default:
   }
-  const pState = JSON.parse(JSON.stringify(state))
   state[key] = val
 }
 
-/* Watch window size in order to adjust timeline size */
-setInterval(function () {
+/*
+ * No need to call setState('loading', true) since DOM
+ * comes at first with #wrapper.wrapper.wrapper_loading node
+ */
+
+/* Set moment locale to fr */
+moment.locale('fr')
+
+function toggleLoadingState (val) {
+  if (val) $('.wrapper').addClass('wrapper_loading')
+  else $('.wrapper_loading').removeClass('wrapper_loading')
+}
+
+/* Watch window size and scroll offset in order to adjust timeline size */
+$(window).on('resize', e => setTimeout(() => {
+  resizeTimelinePanel()
+  updateFactsScrollLevels()
+  moveTimelineCursors()
+}, 10))
+setInterval(() => {
   resizeTimelinePanel()
   updateFactsScrollLevels()
   moveTimelineCursors()
 }, 2000)
-window.onresize = function (e) {
-  setTimeout(function () {
-    resizeTimelinePanel()
-    updateFactsScrollLevels()
-    moveTimelineCursors()
-  }, 10)
-}
-
-/* Watch facts panel size and adapt scrollToTimeMapping */
 
 /* Request data */
-$.ajax({
-  method: 'GET',
-  url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQiKKlxaKWpKKQIPM5JwMU1JDKCWwtEDTG7CgU-5jmTgWhlB3BVyzJb5TbmNoplKJ668Xnm809JLa1j/pub?gid=2063391218&single=true&output=tsv'
-}).then(res => {
-  const { actors, facts } = parse(res)
-  setState('actors', actors)
-  setState('facts', facts)
-  setState('activeBio', null)
-  setState('actorFilter', null)
-}).catch(err => console.log(err))
-// [WIP] Gérer la phase de chargement des données
-// [WIP] Gérer la possiblité d'une erreur de chargement
-// [WIP] Set interval in order to get the height of the menu and adjust sticky elements offset
+function requestData () {
+  setState('loading', true)
+  $.ajax({
+    method: 'GET',
+    url: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQiKKlxaKWpKKQIPM5JwMU1JDKCWwtEDTG7CgU-5jmTgWhlB3BVyzJb5TbmNoplKJ668Xnm809JLa1j/pub?gid=2063391218&single=true&output=tsv'
+  }).then(res => {
+    const { actors, facts } = parse(res)
+    setState('loading', false)
+    setState('actors', actors)
+    setState('facts', facts)
+    setState('activeBio', null)
+    setState('actorFilter', null)
+  }).catch(err => {
+    window.location.reload()
+  })
+}
+requestData()
+
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  *
@@ -682,8 +696,9 @@ function setInteractions () {
   $(window)
     .unbind()
     .on('scroll', e => setTimeout(
-      moveTimelineCursors(e),
-      10
+      function () {
+        moveTimelineCursors(e)
+      }, 10
     ))
   // Automatically scroll when timeline is clicked
   $('.timeline-panel__begin-date')
