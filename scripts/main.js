@@ -329,11 +329,12 @@ function populateFactsPanel (actors, facts) {
         related_actors: relatedActors
       })
     )
-    $('.facts-panel__end-margin').before(
-      FactSpacerTemplate({
-        marginBottom
-      })
-    )
+    // [WIP] Removed the non-linear spacing between facts
+    // $('.facts-panel__end-margin').before(
+    //   FactSpacerTemplate({
+    //     marginBottom
+    //   })
+    // )
   })
   /* Set event listeners */
   setInteractions()
