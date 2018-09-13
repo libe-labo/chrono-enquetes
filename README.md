@@ -64,6 +64,6 @@ Dans votre navigateur, rendez vous sur [http://localhost:8000](http://localhost:
 * [jQuery 3.3.1](https://code.jquery.com/jquery/) - DOM manipulation & ajax requests
 * [Moment.js 2.22.2](https://momentjs.com/) - Date manipulation
 
-## Authors
+### Authors
 
 * **Maxime Fabas** - *Initial work* - [Libé works](https://github.com/libe-max) - [Other works](https://github.com/maximefabas)
