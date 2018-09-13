@@ -75,7 +75,7 @@ function requestData () {
     setState('activeBio', null)
     setState('actorFilter', null)
   }).catch(err => {
-    // window.location.reload()
+    setTimeout(window.location.reload, 2000)
   })
 }
 requestData()
@@ -144,11 +144,15 @@ function ActorThumbTemplate (props) {
   const smallVariant = props.small ? 'actor-thumb_small' : ''
   const noLabelVariant = props.noLabel ? 'actor-thumb_no-label' : ''
   const openBioVariant = parseInt(props.id, 10) === 1 ? 'actor-thumb_bio-open' : ''
+  const image = props.image_url || ''
+  const imageStyle = image ? `background-image: url('${image}');` : ''
   return $(`
 <div
   data-id="${props.id}"
   class="actor-thumb ${accusedVariant} ${smallVariant} ${noLabelVariant} ${openBioVariant}">
-  <div class="actor-thumb__picture"></div>
+  <div
+    class="actor-thumb__picture"
+    style="${imageStyle}"></div>
   <div class="actor-thumb__hover-name-wrapper">
     <div class="actor-thumb__hover-name">${props.name}</div>
   </div>
