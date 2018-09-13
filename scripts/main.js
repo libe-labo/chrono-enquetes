@@ -682,6 +682,18 @@ function activateFilter (id) {
 }
 
 function setInteractions () {
+  // Close floating bios on body click
+  $('body')
+    .unbind()
+    .on('click', function (e) {
+      const $target = $(e.target)
+      const hasActorThumbInParents = $target.parents('.actor-thumb').length
+      const isActorThumbWrapper = $target.is('.actor-thumb')
+      const clickedOnActorThumb = hasActorThumbInParents || isActorThumbWrapper
+      if (!clickedOnActorThumb && state.activeBio) {
+        setState('activeBio', null)
+      }
+    })
   // Open bio on actor thumb click
   $('.actor-thumb')
     .unbind()
@@ -708,7 +720,7 @@ function setInteractions () {
         setState('activeBio', null)
       }
     })
-  // Close bios on floating bios close button click
+  // Close floating bios on floating bios close button click
   $('.actor-thumb__bio-close')
     .unbind()
     .on('click', function (e) {
