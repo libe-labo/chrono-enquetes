@@ -125,7 +125,7 @@ body,
 
 #wrapper .header__block +
 .header__block::before {
-  content: " ";
+  content: " ";
 }
 
 @media screen and (max-width: 920px) {
@@ -1239,7 +1239,7 @@ body,
 }
 
 #wrapper .timeline-panel__event_start::after {
-  content: " ";
+  content: " ";
   position: absolute;
   background-image: url('../assets/timeline-case-start-icon.svg');
   transform: translate(-50%, -50%);
@@ -1255,7 +1255,7 @@ body,
 }
 
 #wrapper .timeline-panel__event_trial::after {
-  content: " ";
+  content: " ";
   position: absolute;
   background-image: url('../assets/timeline-trial-icon.svg');
   transform: translate(-50%, -50%);
