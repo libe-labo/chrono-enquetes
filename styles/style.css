@@ -613,10 +613,11 @@ body,
   display: none;
   flex-wrap: wrap;
   position: absolute;
-  width: 352px;
+  width: 25vw;
+  max-width: 352px;
   padding: 16px;
   background: white;
-  left: calc(100% + 16px);
+  top: calc(100% + 8px);
   box-shadow: 0 0 10px rgba(33, 33, 33, 0.2);
   cursor: default;
   z-index: 7;
