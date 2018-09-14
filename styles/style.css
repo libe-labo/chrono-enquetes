@@ -473,6 +473,73 @@ body,
 
 /*
  *
+ *  Article credits
+ *
+ */
+
+.article-credits {
+  width: 100%;
+  max-width: 600px;
+}
+
+.article-credits__title {
+  margin: 0;
+  margin-bottom: 16px;
+  font-family: 'Libe-Sans', Helvetica, Arial, sans-serif;
+  font-size: 18px;
+  line-height: 24px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  color: #212121;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.article-credits__line-label {
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  color: #808080;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.article-credits__line-label::after {
+  content: ' '
+}
+
+.article-credits__line-value {
+  font-family: 'Synthese', Helvetica, Arial, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  letter-spacing: 0;
+  font-stretch: semi-condensed;
+  text-transform: uppercase;
+  color: #212121;
+  text-decoration: none;
+  text-transform: none;
+}
+
+.article-credits__line-value a {
+  text-decoration: none;
+  color: #212121;
+  border-bottom: 1px solid #E91845;
+}
+
+.article-credits__line-value a:hover {
+  border-bottom-width: 2px;
+}
+
+
+/*
+ *
  *  Actors panel
  *
  */
