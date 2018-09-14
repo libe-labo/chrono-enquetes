@@ -52,7 +52,7 @@ body,
 
 #wrapper .sticky-header {
     position: relative;
-    z-index: 8;
+    z-index: 7;
 }
 
 #wrapper .sticky-header__content {
@@ -94,7 +94,7 @@ body,
   flex-wrap: wrap;
   padding: 24px;
   background: #212121;
-  z-index: 9;
+  z-index: 8;
   position: relative;
 }
 
@@ -645,14 +645,14 @@ body,
   display: none;
   flex-wrap: wrap;
   position: absolute;
-  width: 25vw;
-  max-width: 352px;
+  width: 80vw;
+  max-width: 380px;
   padding: 16px;
   background: white;
-  top: calc(100% + 8px);
+  left: calc(100% + 16px);
   box-shadow: 0 0 10px rgba(33, 33, 33, 0.2);
   cursor: default;
-  z-index: 7;
+  z-index: 9;
 }
 
 #wrapper .actor-thumb__bio-name {
