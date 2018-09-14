@@ -43,7 +43,7 @@ Dans votre navigateur, rendez vous sur [http://localhost:8000](http://localhost:
     - `.header.header_desktop`
     - `.header.header_mobile`
   - remplir le paragraphe d'intro dans la div `.introduction-paragraph`
-  - faire une recherche dans le document de toutes les lignes contenant `[A REMPLIR]`, et remplacer les textes par les textes définitifs
+  - faire une recherche dans le document de toutes les lignes contenant `[À REMPLIR]`, et remplacer les textes par les textes définitifs
 - Dans `styles/custom.css`:
   - ajuster le css pour les tailles et couleurs des titres dans le header (tous les sélecteurs doivent être préfixés par `#wrapper`)
 
