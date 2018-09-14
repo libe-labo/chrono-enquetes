@@ -146,13 +146,16 @@ function ActorThumbTemplate (props) {
   const openBioVariant = parseInt(props.id, 10) === 1 ? 'actor-thumb_bio-open' : ''
   const image = props.image_url || ''
   const imageStyle = image ? `background-image: url('${image}');` : ''
+  const idLetter = props.id_letter
   return $(`
 <div
   data-id="${props.id}"
   class="actor-thumb ${accusedVariant} ${smallVariant} ${noLabelVariant} ${openBioVariant}">
   <div
     class="actor-thumb__picture"
-    style="${imageStyle}"></div>
+    style="${imageStyle}">
+      <div class="actor-thumb__id-letter">${idLetter}</div>
+    </div>
   <div class="actor-thumb__hover-name-wrapper">
     <div class="actor-thumb__hover-name">${props.name}</div>
   </div>
@@ -233,8 +236,8 @@ function parse (rawData) {
   const actorsTable = []
   const factsTable = []
   cells.forEach((line, i) => {
-    actorsTable.push(line.slice(0, 5))
-    factsTable.push(line.slice(5))
+    actorsTable.push(line.slice(0, 6))
+    factsTable.push(line.slice(6))
   })
   const actors = table2object(actorsTable)
   const facts = table2object(factsTable)
@@ -286,24 +289,6 @@ function populateFactsPanel (actors, facts) {
     const pDate = i > 0
       ? moment(sortedFacts[i - 1].date, 'DD/MM/YYYY')
       : moment('01/01/0', 'DD/MM/YYYY')
-    const nDate = i < sortedFacts.length - 1
-      ? moment(sortedFacts[i + 1].date, 'DD/MM/YYYY')
-      : date
-    const diff = nDate.format('x') - date.format('x')
-    const daysDiff = diff / 86400000
-    const calcMargin = days => {
-      const u = 10
-      const [a, b, c, d, e] = [7, 30, 365, 3650, 36500]
-      const [f, g, h, i] = [(b - a), (c - b), (d - c), (e - d)]
-      if (days < 0) return 0
-      if (days < a) return u * days
-      if (days < b) return (u * a) + (days - a) * u/a
-      if (days < c) return (u * a) + (f * u/a) + (days - b) * u/b
-      if (days < d) return (u * a) + (f * u/a) + (g * u/b) + (days - c) * u/c
-      if (days < e) return (u * a) + (f * u/a) + (g * u/b) + (h * u/c) + (days - d) * u/d
-      if (days >= e) return (u * a) + (f * u/a) + (g * u/b) + (h * u/c) + (i * u/d)
-    }
-    const marginBottom = calcMargin(daysDiff)
     const relatedActors = fact.related_actors_id
       .split(';')
       .map(id => parseInt(id, 10) || undefined)
@@ -330,6 +315,23 @@ function populateFactsPanel (actors, facts) {
       })
     )
     // [WIP] Removed the non-linear spacing between facts
+    // const nDate = i < sortedFacts.length - 1
+    //   ? moment(sortedFacts[i + 1].date, 'DD/MM/YYYY')
+    //   : date
+    // const diff = nDate.format('x') - date.format('x')
+    // const daysDiff = diff / 86400000
+    // const marginBottom = (days => {
+    //   const u = 10
+    //   const [a, b, c, d, e] = [7, 30, 365, 3650, 36500]
+    //   const [f, g, h, i] = [(b - a), (c - b), (d - c), (e - d)]
+    //   if (days < 0) return 0
+    //   if (days < a) return u * days
+    //   if (days < b) return (u * a) + (days - a) * u/a
+    //   if (days < c) return (u * a) + (f * u/a) + (days - b) * u/b
+    //   if (days < d) return (u * a) + (f * u/a) + (g * u/b) + (days - c) * u/c
+    //   if (days < e) return (u * a) + (f * u/a) + (g * u/b) + (h * u/c) + (days - d) * u/d
+    //   if (days >= e) return (u * a) + (f * u/a) + (g * u/b) + (h * u/c) + (i * u/d)
+    // })(daysDiff)
     // $('.facts-panel__end-margin').before(
     //   FactSpacerTemplate({
     //     marginBottom
@@ -401,6 +403,19 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
+  /* Add the other roles */
+  if (
+    categorizedActors.autres &&
+    categorizedActors.autres.length) {
+    categorizedActors.autres.forEach(actor => {
+      BiosPanelBioTemplate(actor)
+        .appendTo('.bios-panel')
+      ActorThumbTemplate(Object.assign({}, actor, {
+        noBio: true,
+        noLabel: true
+      })).appendTo('.bios-panel__actors-list')
+    })
+  }
   /* Set event listeners */
   setInteractions()
 }
@@ -459,6 +474,18 @@ function populateActorsPanel (actors, facts) {
       label: customData.rolesLabels.witnesses
     }).appendTo('.actors-panel__actors-list')
     categorizedActors.temoin.forEach(actor => {
+      ActorThumbTemplate(actor)
+        .appendTo('.actors-panel__actors-list')
+    })
+  }
+  /* Add the other roles */
+  if (
+    categorizedActors.autres &&
+    categorizedActors.autres.length) {
+    ActorRoleLabelTemplate({
+      label: customData.rolesLabels.other
+    }).appendTo('.actors-panel__actors-list')
+    categorizedActors.autres.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
