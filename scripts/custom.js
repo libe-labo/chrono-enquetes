@@ -3,6 +3,7 @@ const customData = {
   rolesLabels: {
     accused: 'L\'accusé',
     complainants: 'Les plaignantes',
-    witnesses: 'Les témoins'
+    witnesses: 'Les témoins',
+    other: 'Autres'
   }
 }
