@@ -373,45 +373,58 @@ body,
   background: #02AFEE;
 }
 
-#wrapper .share-article > .share-article__print,
-#wrapper .share-article > .share-article__mail {
-  justify-content: center;
-  border: 1px solid #DEDEDE;
-  background: #FFFFFF;
-  padding: calc(14px - 1px);
+#wrapper .share-article
+  > .share-article__print,
+#wrapper .share-article
+  > .share-article__mail {
+    justify-content: center;
+    border: 1px solid #DEDEDE;
+    background: #FFFFFF;
+    padding: calc(14px - 1px);
 }
 
-#wrapper .share-article > * > svg {
-  width: 20px;
-  height: 20px;
-  margin-right: 8px;
+#wrapper .share-article
+  > * > svg {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
 }
 
-#wrapper .share-article > .share-article__facebook > svg {
-  fill: #ffffff;
+#wrapper .share-article
+  > .share-article__facebook
+    > svg {
+      fill: #ffffff;
 }
 
-#wrapper .share-article > .share-article__twitter > svg {
-  fill: #ffffff;
+#wrapper .share-article
+  > .share-article__twitter
+    > svg {
+      fill: #ffffff;
 }
 
-#wrapper .share-article > .share-article__print > svg {
-  width: 27px;
-  height: 22px;
-  margin-right: 0;
-  fill: #656565;
+#wrapper .share-article
+  > .share-article__print
+    > svg {
+      width: 27px;
+      height: 22px;
+      margin-right: 0;
+      fill: #656565;
 }
 
-#wrapper .share-article > .share-article__mail > svg {
-  width: 20px;
-  height: 13px; 
-  margin-right: 0;
-  fill: #656565;
+#wrapper .share-article
+  > .share-article__mail
+    > svg {
+      width: 20px;
+      height: 13px; 
+      margin-right: 0;
+      fill: #656565;
 }
 
-#wrapper .share-article > * > * {
-  flex-grow: 0;
-  flex-shrink: 0;
+#wrapper .share-article
+  > *
+    > * {
+    flex-grow: 0;
+    flex-shrink: 0;
 }
 
 /* Small variant */
@@ -423,7 +436,12 @@ body,
   .share-article__facebook,
 #wrapper .share-article.share-article_small
   .share-article__twitter {
-    background: #FFFFFF;
+    background: transparent;
+}
+
+#wrapper .share-article.share-article_small
+  > * > svg {
+    margin-right: unset;
 }
 
 #wrapper .share-article.share-article_small
