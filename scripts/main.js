@@ -88,7 +88,7 @@ requestData()
 /* Facebook share */
 $('.share-article__facebook').on('click', function (e) {
   const articleUrl = $('meta[property="og:url"]').attr('content')
-  const facebookUrl = 'http://www.facebook.com/sharer/sharer.php?u=' + articleUrl
+  const facebookUrl = 'https://www.facebook.com/sharer/sharer.php?u=' + articleUrl
   const features = 'width=575,height=400,menubar=no,toolbar=no'
   window.open(facebookUrl, '', features)
 })
