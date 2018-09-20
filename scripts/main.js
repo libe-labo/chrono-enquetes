@@ -44,11 +44,6 @@ function setState (key, val) {
 /* Set moment locale to fr */
 moment.locale('fr')
 
-function toggleLoadingState (val) {
-  if (val) $('.wrapper').addClass('wrapper_loading')
-  else $('.wrapper_loading').removeClass('wrapper_loading')
-}
-
 /* Watch window size and scroll offset in order to adjust timeline size */
 $(window).on('resize', e => setTimeout(() => {
   resizeTimelinePanel()
@@ -194,9 +189,11 @@ function FactTemplate (props) {
       )
     )
   const date = props.display_date || props.date.format('Do MMMM')
+  const classes = ['fact']
+  if (parseInt(props.importance, 10)) classes.push('fact_important')
   return $(`
 <div
-  class="fact"
+  class="${classes.join(' ')}"
   data-id="${props.id}"
   data-timestamp="${props.date.valueOf()}">
   <h4 class="fact__date">${date}</h4>
@@ -258,6 +255,11 @@ function parse (rawData) {
       return object
     }).filter(elt => elt)
   }
+}
+
+function toggleLoadingState (val) {
+  if (val) $('.wrapper').addClass('wrapper_loading')
+  else $('.wrapper_loading').removeClass('wrapper_loading')
 }
 
 /* -------------------- Facts panel -------------------- */
@@ -586,19 +588,20 @@ function populateTimeline (facts) {
     )
     dom.appendTo('.timeline-panel__events')
   })
-  let yearsIncrement = 1
-  if (endYear - beginYear > 6) yearsIncrement = 2
-  if (endYear - beginYear > 12) yearsIncrement = 3
-  if (endYear - beginYear > 20) yearsIncrement = 4
-  if (endYear - beginYear > 50) yearsIncrement = 5
-  if (endYear - beginYear > 100) yearsIncrement = 20
-  for (let i = beginYear + yearsIncrement; i < endYear + 1; i += yearsIncrement) {
-    const date = moment(`01/01/${i}`, 'DD/MM/YYYY').valueOf()
-    const datePosition = (date - beginDate) / (endDate - beginDate)
-    const style = `top: ${datePosition * 100}%;`
-    const dom = $(`<div class="timeline-panel__events-date" style="${style}">${i}</div>`)
-    dom.appendTo('.timeline-panel__events')
-  }
+  // [WIP] removed the years increments in timeline
+  // let yearsIncrement = 1
+  // if (endYear - beginYear > 6) yearsIncrement = 2
+  // if (endYear - beginYear > 12) yearsIncrement = 3
+  // if (endYear - beginYear > 20) yearsIncrement = 4
+  // if (endYear - beginYear > 50) yearsIncrement = 5
+  // if (endYear - beginYear > 100) yearsIncrement = 20
+  // for (let i = beginYear + yearsIncrement; i < endYear + 1; i += yearsIncrement) {
+  //   const date = moment(`01/01/${i}`, 'DD/MM/YYYY').valueOf()
+  //   const datePosition = (date - beginDate) / (endDate - beginDate)
+  //   const style = `top: ${datePosition * 100}%;`
+  //   const dom = $(`<div class="timeline-panel__events-date" style="${style}">${i}</div>`)
+  //   dom.appendTo('.timeline-panel__events')
+  // }
 }
 
 /* -------------------- Full template -------------------- */
@@ -726,10 +729,11 @@ function setInteractions () {
     .unbind()
     .on('click', function (e) {
       e.preventDefault()
-      if ($(e.target).hasClass('actor-thumb__picture')) {
-        const actorId = $(this).data('id')
-        setState('activeBio', actorId)
-      }
+      const isBioPanel = $(e.target).hasClass('actor-thumb__bio')
+      const isInBioPanel = $(e.target).parents('.actor-thumb__bio').length
+      if (isBioPanel || isInBioPanel) return
+      const actorId = $(this).data('id')
+      setState('activeBio', actorId)
     })
   // Close bio on bios panel close button click
   $('.bios-panel__close')

@@ -205,6 +205,11 @@ body,
     margin-bottom: 64px;
 }
 
+#wrapper .page-content__facts
+  .article-credits {
+    margin-bottom: 64px;
+}
+
 #wrapper .page-content__timeline {
   grid-area: timeline;
   z-index: 3;
@@ -1004,7 +1009,6 @@ body,
   background-position: top center;
   background-repeat: repeat-y;
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
@@ -1197,6 +1201,17 @@ body,
 #wrapper .fact__actors
   .actor-thumb {
     margin-left: 8px;
+}
+
+/* States */
+#wrapper .fact.fact_important
+  .fact__title {
+    background: #E91845;
+}
+
+#wrapper .fact.fact_important
+  .fact__card {
+    border-color: #E91845;
 }
 
 /*
