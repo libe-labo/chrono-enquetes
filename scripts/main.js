@@ -44,11 +44,6 @@ function setState (key, val) {
 /* Set moment locale to fr */
 moment.locale('fr')
 
-function toggleLoadingState (val) {
-  if (val) $('.wrapper').addClass('wrapper_loading')
-  else $('.wrapper_loading').removeClass('wrapper_loading')
-}
-
 /* Watch window size and scroll offset in order to adjust timeline size */
 $(window).on('resize', e => setTimeout(() => {
   resizeTimelinePanel()
@@ -258,6 +253,11 @@ function parse (rawData) {
       return object
     }).filter(elt => elt)
   }
+}
+
+function toggleLoadingState (val) {
+  if (val) $('.wrapper').addClass('wrapper_loading')
+  else $('.wrapper_loading').removeClass('wrapper_loading')
 }
 
 /* -------------------- Facts panel -------------------- */
@@ -726,10 +726,11 @@ function setInteractions () {
     .unbind()
     .on('click', function (e) {
       e.preventDefault()
-      if ($(e.target).hasClass('actor-thumb__picture')) {
-        const actorId = $(this).data('id')
-        setState('activeBio', actorId)
-      }
+      const isBioPanel = $(e.target).hasClass('actor-thumb__bio')
+      const isInBioPanel = $(e.target).parents('.actor-thumb__bio').length
+      if (isBioPanel || isInBioPanel) return
+      const actorId = $(this).data('id')
+      setState('activeBio', actorId)
     })
   // Close bio on bios panel close button click
   $('.bios-panel__close')
