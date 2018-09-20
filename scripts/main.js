@@ -588,19 +588,20 @@ function populateTimeline (facts) {
     )
     dom.appendTo('.timeline-panel__events')
   })
-  let yearsIncrement = 1
-  if (endYear - beginYear > 6) yearsIncrement = 2
-  if (endYear - beginYear > 12) yearsIncrement = 3
-  if (endYear - beginYear > 20) yearsIncrement = 4
-  if (endYear - beginYear > 50) yearsIncrement = 5
-  if (endYear - beginYear > 100) yearsIncrement = 20
-  for (let i = beginYear + yearsIncrement; i < endYear + 1; i += yearsIncrement) {
-    const date = moment(`01/01/${i}`, 'DD/MM/YYYY').valueOf()
-    const datePosition = (date - beginDate) / (endDate - beginDate)
-    const style = `top: ${datePosition * 100}%;`
-    const dom = $(`<div class="timeline-panel__events-date" style="${style}">${i}</div>`)
-    dom.appendTo('.timeline-panel__events')
-  }
+  // [WIP] removed the years increments in timeline
+  // let yearsIncrement = 1
+  // if (endYear - beginYear > 6) yearsIncrement = 2
+  // if (endYear - beginYear > 12) yearsIncrement = 3
+  // if (endYear - beginYear > 20) yearsIncrement = 4
+  // if (endYear - beginYear > 50) yearsIncrement = 5
+  // if (endYear - beginYear > 100) yearsIncrement = 20
+  // for (let i = beginYear + yearsIncrement; i < endYear + 1; i += yearsIncrement) {
+  //   const date = moment(`01/01/${i}`, 'DD/MM/YYYY').valueOf()
+  //   const datePosition = (date - beginDate) / (endDate - beginDate)
+  //   const style = `top: ${datePosition * 100}%;`
+  //   const dom = $(`<div class="timeline-panel__events-date" style="${style}">${i}</div>`)
+  //   dom.appendTo('.timeline-panel__events')
+  // }
 }
 
 /* -------------------- Full template -------------------- */
