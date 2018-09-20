@@ -1199,6 +1199,17 @@ body,
     margin-left: 8px;
 }
 
+/* States */
+#wrapper .fact.fact_important
+  .fact__title {
+    background: #E91845;
+}
+
+#wrapper .fact.fact_important
+  .fact__card {
+    border-color: #E91845;
+}
+
 /*
  *
  *  Timeline panel

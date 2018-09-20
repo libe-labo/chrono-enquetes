@@ -189,9 +189,11 @@ function FactTemplate (props) {
       )
     )
   const date = props.display_date || props.date.format('Do MMMM')
+  const classes = ['fact']
+  if (parseInt(props.importance, 10)) classes.push('fact_important')
   return $(`
 <div
-  class="fact"
+  class="${classes.join(' ')}"
   data-id="${props.id}"
   data-timestamp="${props.date.valueOf()}">
   <h4 class="fact__date">${date}</h4>
