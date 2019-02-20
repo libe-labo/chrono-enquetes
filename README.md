@@ -10,12 +10,12 @@ Avoir un ordinateur avec internet installé dessus.
 
 ### Installation
 
-À la main :
+Soit à la main :
 - Cliquer sur `Clone or download > Download ZIP`, l'enregistrer où vous voulez
 - Ouvrir une fenêtre de terminal, taper `cd` **suivi d'un espace**, et glisser dans la fenêtre le dossier que vous venez de télécharger. Faites [Entrée].
 - Taper cette commande puis faites [Entrée] : `python -m SimpleHTTPServer 8000`
 
-Dans le terminal :
+Soit dans le terminal (sur Mac) :
 - `cd /le/chemin/que/vous/voulez`
 - `git clone https://github.com/libe-max/affaires-judiciaires.git`
 - `python -m SimpleHTTPServer 8000`
@@ -51,7 +51,7 @@ Dans votre navigateur, rendez vous sur [http://localhost:8000](http://localhost:
 
 - Dans `index.html`:
   - décommenter les scripts Chartbeat, Google Analytics et Xiti en bas du document 
-- Créer sur le FTP un dossier nommé `/[Année]/[Mois]/[Nom du format]` (cette structure doit correspondre aux URLS renseignées dans les meta tags en haut de `index.html`)
+- Créer sur le FTP un dossier nommé `/[Année]/[Mois]/[Nom du format]` (l'url doit correspondre à celles renseignées dans les meta-tags en haut de `index.html`)
 - Déposer à l'interieur du dossier créé sur le serveur l'intégralité du contenu du dossier de cette application.
 - Votre application devrait apparaitre sous peu à l'adresse `http://www.liberation.fr/[Année]/[Mois]/[Nom du format]`
 
