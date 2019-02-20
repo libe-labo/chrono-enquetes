@@ -366,11 +366,11 @@ function populateBiosPanel (actors, facts) {
     if (!categorizedActors[role]) categorizedActors[role] = []
     categorizedActors[role].push(actor)
   })
-  /* Add the accused */
+  /* Add the president */
   if (
-    categorizedActors.accus_e &&
-    categorizedActors.accus_e.length) {
-    categorizedActors.accus_e.forEach(actor => {
+    categorizedActors.le_pr_sident_et_sa_rivale &&
+    categorizedActors.le_pr_sident_et_sa_rivale.length) {
+    categorizedActors.le_pr_sident_et_sa_rivale.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -379,11 +379,11 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
-  /* Add the complainants */
+  /* Add the bloodhounds */
   if (
-    categorizedActors.plaignant_e &&
-    categorizedActors.plaignant_e.length) {
-    categorizedActors.plaignant_e.forEach(actor => {
+    categorizedActors.les_limiers &&
+    categorizedActors.les_limiers.length) {
+    categorizedActors.les_limiers.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -392,11 +392,11 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
-  /* Add the witnesses */
+  /* Add the relatives */
   if (
-    categorizedActors.temoin &&
-    categorizedActors.temoin.length) {
-    categorizedActors.temoin.forEach(actor => {
+    categorizedActors.les_proches_de_trump &&
+    categorizedActors.les_proches_de_trump.length) {
+    categorizedActors.les_proches_de_trump.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -405,11 +405,24 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
-  /* Add the other roles */
+  /* Add the associates */
   if (
-    categorizedActors.autres &&
-    categorizedActors.autres.length) {
-    categorizedActors.autres.forEach(actor => {
+    categorizedActors.les_associ_s_de_trump &&
+    categorizedActors.les_associ_s_de_trump.length) {
+    categorizedActors.les_associ_s_de_trump.forEach(actor => {
+      BiosPanelBioTemplate(actor)
+        .appendTo('.bios-panel')
+      ActorThumbTemplate(Object.assign({}, actor, {
+        noBio: true,
+        noLabel: true
+      })).appendTo('.bios-panel__actors-list')
+    })
+  }
+  /* Add the russians */
+  if (
+    categorizedActors.c_t_russe &&
+    categorizedActors.c_t_russe.length) {
+    categorizedActors.c_t_russe.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -444,50 +457,62 @@ function populateActorsPanel (actors, facts) {
     if (!categorizedActors[role]) categorizedActors[role] = []
     categorizedActors[role].push(actor)
   })
-  /* Add the accused */
+  /* Add the president */
   if (
-    categorizedActors.accus_e &&
-    categorizedActors.accus_e.length) {
+    categorizedActors.le_pr_sident_et_sa_rivale &&
+    categorizedActors.le_pr_sident_et_sa_rivale.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.accused
+      label: customData.rolesLabels.president
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.accus_e.forEach(actor => {
+    categorizedActors.le_pr_sident_et_sa_rivale.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the complainants */
+  /* Add the bloodhounds */
   if (
-    categorizedActors.plaignant_e &&
-    categorizedActors.plaignant_e.length) {
+    categorizedActors.les_limiers &&
+    categorizedActors.les_limiers.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.complainants
+      label: customData.rolesLabels.bloodhounds
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.plaignant_e.forEach(actor => {
+    categorizedActors.les_limiers.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the witnesses */
+  /* Add the relatives */
   if (
-    categorizedActors.temoin &&
-    categorizedActors.temoin.length) {
+    categorizedActors.les_proches_de_trump &&
+    categorizedActors.les_proches_de_trump.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.witnesses
+      label: customData.rolesLabels.relatives
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.temoin.forEach(actor => {
+    categorizedActors.les_proches_de_trump.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the other roles */
+  /* Add the associates */
   if (
-    categorizedActors.autres &&
-    categorizedActors.autres.length) {
+    categorizedActors.les_associ_s_de_trump &&
+    categorizedActors.les_associ_s_de_trump.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.other
+      label: customData.rolesLabels.associates
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.autres.forEach(actor => {
+    categorizedActors.les_associ_s_de_trump.forEach(actor => {
+      ActorThumbTemplate(actor)
+        .appendTo('.actors-panel__actors-list')
+    })
+  }
+  /* Add the russians */
+  if (
+    categorizedActors.c_t_russe &&
+    categorizedActors.c_t_russe.length) {
+    ActorRoleLabelTemplate({
+      label: customData.rolesLabels.russians
+    }).appendTo('.actors-panel__actors-list')
+    categorizedActors.c_t_russe.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
