@@ -138,7 +138,9 @@ function ActorThumbTemplate (props) {
   const accusedVariant = props.role === 'Accusé•e' ? 'actor-thumb_accused' : ''
   const smallVariant = props.small ? 'actor-thumb_small' : ''
   const noLabelVariant = props.noLabel ? 'actor-thumb_no-label' : ''
-  const openBioVariant = parseInt(props.id, 10) === 1 ? 'actor-thumb_bio-open' : ''
+  // [WIP] Wrote the line below for the "Affaire ramadan", and now, can't understand why
+  // const openBioVariant = parseInt(props.id, 10) === 1 ? 'actor-thumb_bio-open' : ''
+  const openBioVariant = props.openBio ? 'actor-thumb_bio-open' : ''
   const image = props.image_url || ''
   const imageStyle = image ? `background-image: url('${image}');` : ''
   const idLetter = props.id_letter
@@ -188,7 +190,9 @@ function FactTemplate (props) {
         Object.assign({}, rel, { small: true })
       )
     )
-  const date = props.display_date || props.date.format('Do MMMM')
+  const date = props.display_date || (props.date.year() === moment().year()
+    ? props.date.format('Do MMMM')
+    : props.date.format('Do MMMM YYYY'))
   const classes = ['fact']
   if (parseInt(props.importance, 10)) classes.push('fact_important')
   return $(`
@@ -614,7 +618,7 @@ function populateTimeline (facts) {
     dom.appendTo('.timeline-panel__events')
   })
   // [WIP] removed the years increments in timeline
-  // let yearsIncrement = 1
+  // let yearsIncrement = 1 
   // if (endYear - beginYear > 6) yearsIncrement = 2
   // if (endYear - beginYear > 12) yearsIncrement = 3
   // if (endYear - beginYear > 20) yearsIncrement = 4
