@@ -370,11 +370,11 @@ function populateBiosPanel (actors, facts) {
     if (!categorizedActors[role]) categorizedActors[role] = []
     categorizedActors[role].push(actor)
   })
-  /* Add the president */
+  /* Add the du genre homo */
   if (
-    categorizedActors.le_pr_sident_et_sa_rivale &&
-    categorizedActors.le_pr_sident_et_sa_rivale.length) {
-    categorizedActors.le_pr_sident_et_sa_rivale.forEach(actor => {
+    categorizedActors.du_genre_homo &&
+    categorizedActors.du_genre_homo.length) {
+    categorizedActors.du_genre_homo.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -383,11 +383,11 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
-  /* Add the bloodhounds */
+  /* Add the australopitheques */
   if (
-    categorizedActors.les_limiers &&
-    categorizedActors.les_limiers.length) {
-    categorizedActors.les_limiers.forEach(actor => {
+    categorizedActors.australopith_ques &&
+    categorizedActors.australopith_ques.length) {
+    categorizedActors.australopith_ques.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -396,11 +396,11 @@ function populateBiosPanel (actors, facts) {
       })).appendTo('.bios-panel__actors-list')
     })
   }
-  /* Add the relatives */
+  /* Add the others */
   if (
-    categorizedActors.les_proches_de_trump &&
-    categorizedActors.les_proches_de_trump.length) {
-    categorizedActors.les_proches_de_trump.forEach(actor => {
+    categorizedActors.autres &&
+    categorizedActors.autres.length) {
+    categorizedActors.autres.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -411,22 +411,9 @@ function populateBiosPanel (actors, facts) {
   }
   /* Add the associates */
   if (
-    categorizedActors.les_associ_s_de_trump &&
-    categorizedActors.les_associ_s_de_trump.length) {
-    categorizedActors.les_associ_s_de_trump.forEach(actor => {
-      BiosPanelBioTemplate(actor)
-        .appendTo('.bios-panel')
-      ActorThumbTemplate(Object.assign({}, actor, {
-        noBio: true,
-        noLabel: true
-      })).appendTo('.bios-panel__actors-list')
-    })
-  }
-  /* Add the russians */
-  if (
-    categorizedActors.c_t_russe &&
-    categorizedActors.c_t_russe.length) {
-    categorizedActors.c_t_russe.forEach(actor => {
+    categorizedActors.les_plus_anciens_hominines &&
+    categorizedActors.les_plus_anciens_hominines.length) {
+    categorizedActors.les_plus_anciens_hominines.forEach(actor => {
       BiosPanelBioTemplate(actor)
         .appendTo('.bios-panel')
       ActorThumbTemplate(Object.assign({}, actor, {
@@ -461,8 +448,6 @@ function populateActorsPanel (actors, facts) {
     if (!categorizedActors[role]) categorizedActors[role] = []
     categorizedActors[role].push(actor)
   })
-  console.log(categorizedActors)
-
   /* Add the du genre homo */
   if (
     categorizedActors.du_genre_homo &&
