@@ -461,62 +461,52 @@ function populateActorsPanel (actors, facts) {
     if (!categorizedActors[role]) categorizedActors[role] = []
     categorizedActors[role].push(actor)
   })
-  /* Add the president */
+  console.log(categorizedActors)
+
+  /* Add the du genre homo */
   if (
-    categorizedActors.le_pr_sident_et_sa_rivale &&
-    categorizedActors.le_pr_sident_et_sa_rivale.length) {
+    categorizedActors.du_genre_homo &&
+    categorizedActors.du_genre_homo.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.president
+      label: customData.rolesLabels.homo
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.le_pr_sident_et_sa_rivale.forEach(actor => {
+    categorizedActors.du_genre_homo.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the bloodhounds */
+  /* Add the australopitheques */
   if (
-    categorizedActors.les_limiers &&
-    categorizedActors.les_limiers.length) {
+    categorizedActors.australopith_ques &&
+    categorizedActors.australopith_ques.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.bloodhounds
+      label: customData.rolesLabels.australo
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.les_limiers.forEach(actor => {
+    categorizedActors.australopith_ques.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the relatives */
+  /* Add autres */
   if (
-    categorizedActors.les_proches_de_trump &&
-    categorizedActors.les_proches_de_trump.length) {
+    categorizedActors.autres &&
+    categorizedActors.autres.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.relatives
+      label: customData.rolesLabels.other
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.les_proches_de_trump.forEach(actor => {
+    categorizedActors.autres.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
   }
-  /* Add the associates */
+  /* Add les plus anciens hominines */
   if (
-    categorizedActors.les_associ_s_de_trump &&
-    categorizedActors.les_associ_s_de_trump.length) {
+    categorizedActors.les_plus_anciens_hominines &&
+    categorizedActors.les_plus_anciens_hominines.length) {
     ActorRoleLabelTemplate({
-      label: customData.rolesLabels.associates
+      label: customData.rolesLabels.hominines
     }).appendTo('.actors-panel__actors-list')
-    categorizedActors.les_associ_s_de_trump.forEach(actor => {
-      ActorThumbTemplate(actor)
-        .appendTo('.actors-panel__actors-list')
-    })
-  }
-  /* Add the russians */
-  if (
-    categorizedActors.c_t_russe &&
-    categorizedActors.c_t_russe.length) {
-    ActorRoleLabelTemplate({
-      label: customData.rolesLabels.russians
-    }).appendTo('.actors-panel__actors-list')
-    categorizedActors.c_t_russe.forEach(actor => {
+    categorizedActors.les_plus_anciens_hominines.forEach(actor => {
       ActorThumbTemplate(actor)
         .appendTo('.actors-panel__actors-list')
     })
@@ -689,24 +679,24 @@ function activateBio (id) {
   const newPanel = $(`.bios-panel__bio[data-id="${id}"]`).addClass('bios-panel__bio_visible')
   // Center actor thumbs list in bios panel (mobile)
   const bioPan = {}
-  bioPan.itemWidth = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).width(),
-  bioPan.itemOffset = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).offset().left,
-  bioPan.listWidth = $('.bios-panel__actors-list').width(),
-  bioPan.listOffset = $('.bios-panel__actors-list').offset().left,
-  bioPan.listScroll = $('.bios-panel__actors-list').scrollLeft(),
-  bioPan.targetOffset = bioPan.listOffset + bioPan.listWidth / 2 - bioPan.itemWidth / 2,
-  bioPan.offsetDiff = bioPan.targetOffset - bioPan.itemOffset,
+  bioPan.itemWidth = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).width()
+  bioPan.itemOffset = $(`.bios-panel__actors-list .actor-thumb[data-id="${id}"]`).offset().left
+  bioPan.listWidth = $('.bios-panel__actors-list').width()
+  bioPan.listOffset = $('.bios-panel__actors-list').offset().left
+  bioPan.listScroll = $('.bios-panel__actors-list').scrollLeft()
+  bioPan.targetOffset = bioPan.listOffset + bioPan.listWidth / 2 - bioPan.itemWidth / 2
+  bioPan.offsetDiff = bioPan.targetOffset - bioPan.itemOffset
   bioPan.targetScroll = bioPan.listScroll - bioPan.offsetDiff
   $('.bios-panel__actors-list').animate({ scrollLeft: bioPan.targetScroll }, 400)
   // Center actor thumbs list in actors-list (mobile)
   const actPan = {}
-  actPan.itemWidth = $(`.actors-panel__actors-list .actor-thumb[data-id="${id}"]`).width(),
-  actPan.itemOffset = $(`.actors-panel__actors-list .actor-thumb[data-id="${id}"]`).offset().left,
-  actPan.listWidth = $('.actors-panel__actors-list').width(),
-  actPan.listOffset = $('.actors-panel__actors-list').offset().left,
-  actPan.listScroll = $('.actors-panel__actors-list').scrollLeft(),
-  actPan.targetOffset = actPan.listOffset + actPan.listWidth / 2 - actPan.itemWidth / 2,
-  actPan.offsetDiff = actPan.targetOffset - actPan.itemOffset,
+  actPan.itemWidth = $(`.actors-panel__actors-list .actor-thumb[data-id="${id}"]`).width()
+  actPan.itemOffset = $(`.actors-panel__actors-list .actor-thumb[data-id="${id}"]`).offset().left
+  actPan.listWidth = $('.actors-panel__actors-list').width()
+  actPan.listOffset = $('.actors-panel__actors-list').offset().left
+  actPan.listScroll = $('.actors-panel__actors-list').scrollLeft()
+  actPan.targetOffset = actPan.listOffset + actPan.listWidth / 2 - actPan.itemWidth / 2
+  actPan.offsetDiff = actPan.targetOffset - actPan.itemOffset
   actPan.targetScroll = actPan.listScroll - actPan.offsetDiff
   $('.actors-panel__actors-list').animate({ scrollLeft: actPan.targetScroll }, 400)
 }
