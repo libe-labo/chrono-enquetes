@@ -172,6 +172,9 @@ function BiosPanelBioTemplate (props) {
   return $(
 `<div class="bios-panel__bio" data-id="${props.id}">
   <div class="bios-panel__bio-name">${props.name}</div>
+  <div class="bios-panel__bio-illustration">
+    ${props.illustration ? `<img src="${props.illustration}" />` : ''}
+  </div>
   <div class="bios-panel__bio-content">${props.bio || 'Aucune bio.'}</div>
   <button class="bios-panel__filter-facts">Filtrer</button>
 </div>`)}
