@@ -237,8 +237,8 @@ function parse (rawData) {
   const actorsTable = []
   const factsTable = []
   cells.forEach((line, i) => {
-    actorsTable.push(line.slice(0, 6))
-    factsTable.push(line.slice(6))
+    actorsTable.push(line.slice(0, 7))
+    factsTable.push(line.slice(7))
   })
   const actors = table2object(actorsTable)
   const facts = table2object(factsTable)
