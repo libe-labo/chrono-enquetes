@@ -1,8 +1,13 @@
+#wrapper .header,
+#wrapper .sticky-header__content {
+  background: #8D150B;
+}
+
 #wrapper
   .header_desktop .header__line:nth-child(1) {
     font-size: 30px;
     line-height: 40px;
-    color: #E3234A;
+    color: #F7B85E;
 }
 
 #wrapper
@@ -21,7 +26,7 @@
   .header_mobile .header__line:nth-child(1) {
     font-size: 9vw;
     line-height: 10vw;
-    color: #E3234A;
+    color: #F7B85E;
 }
 
 #wrapper
@@ -37,4 +42,21 @@
     line-height: 22vw;
     font-weight: 800;
     color: #F4F4F4;
+}
+
+#wrapper
+  .fact__title {
+    background: #5C2722;
+    padding: .5rem;
+}
+
+#wrapper
+  .fact__card {
+    border-top: none;
+}
+
+#wrapper .page-content__actors,
+#wrapper .actors-panel,
+#wrapper .timeline-panel {
+  background: #FAFAFA;
 }
