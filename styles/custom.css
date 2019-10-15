@@ -24,23 +24,16 @@
 
 #wrapper
   .header_mobile .header__line:nth-child(1) {
-    font-size: 9vw;
-    line-height: 10vw;
+    font-size: 5.5vw;
+    line-height: 6vw;
+    margin-bottom: 1rem;
     color: #F7B85E;
 }
 
 #wrapper
   .header_mobile .header__line:nth-child(2) {
-    font-size: 23.5vw;
-    line-height: 22vw;
-    color: #F4F4F4;
-}
-
-#wrapper
-  .header_mobile .header__line:nth-child(3) {
-    font-size: 20vw;
-    line-height: 22vw;
-    font-weight: 800;
+    font-size: 10vw;
+    line-height: 11vw;
     color: #F4F4F4;
 }
 
@@ -59,4 +52,24 @@
 #wrapper .actors-panel,
 #wrapper .timeline-panel {
   background: #FAFAFA;
+}
+
+@media screen and (max-width: 920px) {
+  #wrapper .page-content__intro {
+    background: #FFFFFF;    
+  }
+
+  #wrapper .page-content__intro .introduction-paragraph {
+    color: #212121;
+    margin-top: 2rem;
+  }
+}
+
+#wrapper .sticky-header__content {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+#wrapper .sticky-header__content > img {
+  display: none;
 }
