@@ -73,3 +73,46 @@
 #wrapper .sticky-header__content > img {
   display: none;
 }
+
+#wrapper .fact.fact_important .fact__card {
+  border-color: #F7B95D;
+}
+
+#wrapper .fact.fact_important .fact__title {
+  background: #F7B95D;
+  color: #212121;
+}
+
+#wrapper .timeline-panel__event_important {
+  background: rgba(33, 33, 33, .4);
+}
+
+#wrapper .actor-thumb__picture {
+  opacity: 1;
+}
+
+#wrapper .actor-thumb__hover-name-wrapper {
+  bottom: unset;
+  top: 3.5rem;
+}
+
+#wrapper .actor-thumb__picture {
+  width: 6rem;
+  height: 6rem;
+}
+
+#wrapper .page-content__bios {
+  z-index: 800;
+}
+
+
+@media screen and (max-width: 920px) {
+  #wrapper .timeline-panel {
+    background: #212121;
+  }
+}
+
+
+
+
+

@@ -574,7 +574,7 @@ function populateTimeline (facts) {
     const dom = $(`
       <div
         data-id="${fact.id}"
-        data-timestamp="${fact.timestamp}"
+        data-timestamp="${factDate}"
         class="${[...classes, 'timeline-panel__event_desktop'].join(' ')}"
         style="${desktopStyle}">
         <div class="timeline-panel__event-hover">
