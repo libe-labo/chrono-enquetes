@@ -727,9 +727,9 @@ function setInteractions () {
       const hasActorThumbInParents = $target.parents('.actor-thumb').length
       const isActorThumbWrapper = $target.is('.actor-thumb')
       const clickedOnActorThumb = hasActorThumbInParents || isActorThumbWrapper
-      if (!clickedOnActorThumb && state.activeBio) {
-        setState('activeBio', null)
-      }
+      // if (!clickedOnActorThumb && state.activeBio) {
+      //   setState('activeBio', null)
+      // }
     })
   // Open bio on actor thumb click
   $('.actor-thumb')

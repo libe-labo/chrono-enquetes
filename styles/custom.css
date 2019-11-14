@@ -112,7 +112,23 @@
   }
 }
 
+#wrapper .facts-panel__title {
+  text-align: center;
+}
 
+@media screen and (max-width: 920px) {
+  #wrapper .bios-panel {
+    padding: 8px;
+  }
+
+  #wrapper .page-content__facts {
+    padding: 8px;
+  }
+
+  #wrapper .page-content__bios {
+    padding: 8px;
+  }
+}
 
 
 
